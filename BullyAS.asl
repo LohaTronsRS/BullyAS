@@ -1,4 +1,3 @@
-
 state("Bully"){
 	int IGT : "Bully.exe", 0x81A340;
 	byte M1State : 0x1CC4328, 0x1C;
