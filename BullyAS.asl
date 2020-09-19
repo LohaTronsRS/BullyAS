@@ -733,6 +733,7 @@ init{
 	vars.hasSplit = new List<string>();
 	vars.errandTracker = new List<string>();
 	vars.IGToffset = new int();
+	vars.IGToffset = 0;
 }
 
 update{
