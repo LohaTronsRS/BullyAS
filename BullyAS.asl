@@ -31,8 +31,8 @@ startup{
 		{0xC2, "M_1_14"},				//Russell in the Hole
 						
 						//Chapter 2
-		{0xF2, "M_2_01"},				//Last Minute Shopping
 		{0xEC, "M_2_02"},				//Hattrick vs. Galloway
+		{0xF2, "M_2_01"},				//Last Minute Shopping
 		{0x182, "M_2_03"},				//Prep Challenge
 		{0xE6, "M_2_03R"},					//Prep Challenge Rounds (1 - Chad, 2 - Justin, 3 - )
 		{0x10A, "M_2_04"},				//The Eggs
@@ -285,8 +285,8 @@ added it anyway in case any one wants to use it.");
 	settings.Add("C_C_02", false, "Chapter 2 Introduction");
 	settings.SetToolTip("C_C_02", "Splits after Chapter 2 introduction cutscene");
 	settings.Add("CH2", true, "Chapter 2");
-		settings.Add("M_2_01", true, "Last Minute Shopping", "CH2");
 		settings.Add("M_2_02", true, "Hattrick vs. Galloway", "CH2");
+		settings.Add("M_2_01", true, "Last Minute Shopping", "CH2");
 		settings.Add("M_2_03", true, "Prep Challenge", "CH2");
 			settings.Add("M_2_03R", false, "Chad", "M_2_03");
 			settings.SetToolTip("M_2_03R", "Additional split for Chad");
