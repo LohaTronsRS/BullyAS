@@ -13,7 +13,7 @@ startup{
 					//---Welcome to Bullworth	
 		{0x1A, "M_1_01a"}, 				//Meet the Principal
 		{0x20, "M_1_01b"},				//Bully Fight
-		{0x26, "M_1_01c"},				//Meet Garry
+		{0x26, "M_1_01c"},				//Meet Gary
 					//---
 		{0x2C, "M_1_02"},				//Mission Tutorial
 		{0x32, "M_1_03"},				//This is Your School
@@ -27,8 +27,8 @@ startup{
 		{0x80, "M_1_10"},				//That Bitch
 		{0x8C, "M_1_11"},				//The Candidate
 		{0x9E, "M_1_12"},				//Halloween
-		{0xBC, "M_1_13"},				//Help Garry
-		{0xC2, "M_1_14"},				//Russel in the Hole
+		{0xBC, "M_1_13"},				//Help Gary
+		{0xC2, "M_1_14"},				//Russell in the Hole
 						
 						//Chapter 2
 		{0xF2, "M_2_01"},				//Last Minute Shopping
@@ -258,7 +258,7 @@ startup{
 		settings.Add("M_1", true, "Welcome to Bullworth", "CH1");
 			settings.Add("M_1_01a", false, "Meet the Principal", "M_1");
 			settings.Add("M_1_01b", false, "Bully Fight", "M_1");
-			settings.Add("M_1_01c", true, "Meet Garry", "M_1");
+			settings.Add("M_1_01c", true, "Meet Gary", "M_1");
 			settings.SetToolTip("M_1_01a", "Splits after going to the Principal.");
 			settings.SetToolTip("M_1_01b", "Splits when entering Boys Dorm.");
 			settings.SetToolTip("M_1_01c", "Splits after mission ends.");
@@ -277,8 +277,8 @@ added it anyway in case any one wants to use it.");
 		settings.Add("M_1_10", true,"That Bitch","CH1");
 		settings.Add("M_1_11", true,"The Candidate","CH1");
 		settings.Add("M_1_12", true,"Halloween","CH1");
-		settings.Add("M_1_13", false,"Help Garry","CH1");
-		settings.Add("M_1_14", true,"Russel in the Hole","CH1");
+		settings.Add("M_1_13", false,"Help Gary","CH1");
+		settings.Add("M_1_14", true,"Russell in the Hole","CH1");
 		
 		//-----Chapter 2-----//	
 		
@@ -356,7 +356,7 @@ added it anyway in case any one wants to use it.");
 			settings.Add("M_5_11b", false, "Take down the Clique Leaders","M_5_11");
 			settings.Add("M_5_11c", true, "Final Showdown","M_5_11");
 			settings.SetToolTip("M_5_11c", "Splits as the Crabblesnitch cutscene ends");
-			settings.Add("M_5_11d", false, "Garry KO'd","M_5_11"); 
+			settings.Add("M_5_11d", false, "Gary KO'd","M_5_11"); 
 			settings.SetToolTip("M_5_11d", @"Somewhat experimental
 Chance of it splitting when it shouldn't 
 Use at your own risk!");
@@ -766,8 +766,8 @@ split{
 			}
 		}
 	}
-								// The somewhat experimental Garry KO split, Im not exactly sure what C does,
-								// It does switch states at earlier stages as well, but seems to be only once durring Garry's fight
+								// The somewhat experimental Gary KO split, Im not exactly sure what C does,
+								// It does switch states at earlier stages as well, but seems to be only once durring Gary's fight
 								// And right as you KO him ... so dicided to make this mess...
 	if (settings["M_5_11d"] && current.LMState == 17 && current.C == 1 && old.C == 0 && !vars.hasSplit.Contains("M_5_11d")){
 		vars.hasSplit.Add("M_5_11d");
