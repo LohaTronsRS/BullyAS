@@ -254,31 +254,31 @@ startup{
 	 // ------------------------- Settings    ... I wonder could i have written them better :thinking:
 		//-----Chapter 1-----//
 		
-	settings.Add("ch1", true, "Chapter 1"); 
-		settings.Add("M_1", true, "Welcome to Bullworth", "ch1");
+	settings.Add("CH1", true, "Chapter 1"); 
+		settings.Add("M_1", true, "Welcome to Bullworth", "CH1");
 			settings.Add("M_1_01a", false, "Meet the Principal", "M_1");
 			settings.Add("M_1_01b", false, "Bully Fight", "M_1");
 			settings.Add("M_1_01c", true, "Meet Garry", "M_1");
 			settings.SetToolTip("M_1_01a", "Splits after going to the Principal.");
 			settings.SetToolTip("M_1_01b", "Splits when entering Boys Dorm.");
 			settings.SetToolTip("M_1_01c", "Splits after mission ends.");
-		settings.Add("M_1_02", false, "Mission Tutorial", "ch1");
+		settings.Add("M_1_02", false, "Mission Tutorial", "CH1");
 		settings.SetToolTip("M_1_02", @"Splits after walking into 'This is Your School' mission marker.
 Not sure why it's counted as seperate mission,
 added it anyway in case any one wants to use it.");
-		settings.Add("M_1_03", true, "This is Your School", "ch1");
-		settings.Add("M_1_04", false,"Get to Class", "ch1");
-		settings.Add("M_1_05", true, "The Setup", "ch1");
-		settings.Add("M_1_06", true,"Slingshot", "ch1");
-		settings.Add("M_1_07", true,"Save Algie","ch1");
-		settings.Add("M_1_0E", false,"Peter's Errand","ch1");
-		settings.Add("M_1_08", true,"A Little Help","ch1");
-		settings.Add("M_1_09", true,"Defend Bucky","ch1");
-		settings.Add("M_1_10", true,"That Bitch","ch1");
-		settings.Add("M_1_11", true,"The Candidate","ch1");
-		settings.Add("M_1_12", true,"Halloween","ch1");
-		settings.Add("M_1_13", false,"Help Garry","ch1");
-		settings.Add("M_1_14", true,"Russel in the Hole","ch1");
+		settings.Add("M_1_03", true, "This is Your School", "CH1");
+		settings.Add("M_1_04", false,"Get to Class", "CH1");
+		settings.Add("M_1_05", true, "The Setup", "CH1");
+		settings.Add("M_1_06", true,"Slingshot", "CH1");
+		settings.Add("M_1_07", true,"Save Algie","CH1");
+		settings.Add("M_1_0E", false,"Peter's Errand","CH1");
+		settings.Add("M_1_08", true,"A Little Help","CH1");
+		settings.Add("M_1_09", true,"Defend Bucky","CH1");
+		settings.Add("M_1_10", true,"That Bitch","CH1");
+		settings.Add("M_1_11", true,"The Candidate","CH1");
+		settings.Add("M_1_12", true,"Halloween","CH1");
+		settings.Add("M_1_13", false,"Help Garry","CH1");
+		settings.Add("M_1_14", true,"Russel in the Hole","CH1");
 		
 		//-----Chapter 2-----//	
 		
@@ -703,6 +703,10 @@ When you would normally pause at Jimmy's room");
 			settings.Add("ER_37",true, "Vehicular Vandalism 2","ER_BSI");
 			settings.SetToolTip("ER_37","Destroy the 11 parts of the car.");
 
+
+			//IL Toggles	
+	settings.Add("IL", false, "Individual Level toggle");
+	settings.SetToolTip("IL", "Toggles for Timer start/reset's");
 			
 	 // ------------------------- End of Settings
 }
@@ -712,19 +716,27 @@ init{
 		throw new Exception("--Memory still loading--");}			//Idk how to word this correctly, but is required for MemoryWatcher
 		
 	vars.watcherList = new MemoryWatcherList();
-	foreach ( var address in vars.mAddresses)
-		vars.watcherList.Add(new MemoryWatcher<byte>((IntPtr)current.M + address.Key) { Name = address.Value});
+	vars.watcherListIL = new MemoryWatcherList();
 	
-	foreach ( var errand in vars.eAddresses)
+	foreach ( var address in vars.mAddresses){
+		vars.watcherList.Add(new MemoryWatcher<byte>((IntPtr)current.M + address.Key) {Name = address.Value});
+		vars.watcherListIL.Add(new MemoryWatcher<byte>((IntPtr)current.M + address.Key + 0x2) {Name = address.Value});
+	}
+	
+	foreach ( var errand in vars.eAddresses){
 		vars.watcherList.Add(new MemoryWatcher<byte>(modules.First().BaseAddress + errand.Key) {Name = errand.Value});
+	}
 	
 	vars.hasSplit = new List<string>();
 	vars.errandTracker = new List<string>();
+	vars.IGToffset = new int();
 }
 
 update{
-
 	vars.watcherList.UpdateAll(game);
+	if(settings["IL"]){
+		vars.watcherListIL.UpdateAll(game);
+	}
 	
 	current.timerPhase = timer.CurrentPhase;
 										//Yes i did take this snipet from GTA3 AS, as i was too busy making the cluster buster up there ... you know what im talking about
@@ -780,7 +792,13 @@ split{
 }
 
 gameTime {
-    return TimeSpan.FromSeconds((double)current.IGT / 1000);
+	if(!settings["IL"]){
+		return TimeSpan.FromSeconds((double)current.IGT / 1000);
+	}
+	
+	else{
+		return TimeSpan.FromSeconds((double)(current.IGT - vars.IGToffset) / 1000);
+	}
 }
 
 isLoading {
@@ -788,17 +806,37 @@ isLoading {
 }
 
 start{
-	if (current.M1State == 17 && old.M1State == 0){				
+	if (current.M1State == 17 && old.M1State == 0 && !settings["IL"]){				
 		vars.hasSplit.Clear();
 		vars.errandTracker.Clear();
 		return true;
 	}
+	
+	else
+	if(settings["IL"]){
+		foreach (var mission in vars.mAddresses) {
+			if (settings[mission.Value] && vars.watcherListIL[mission.Value].Current == 17 && (vars.watcherListIL[mission.Value].Old == 0 || vars.watcherListIL[mission.Value].Old == 1)){
+				vars.IGToffset = current.IGT;
+				return true;
+			}
+		}
+	}
 } 
 
 reset{
-	if (current.M1State == 17 && old.M1State == 0){
+	if (current.M1State == 17 && old.M1State == 0 && !settings["IL"]){
 		vars.hasSplit.Clear();
 		vars.errandTracker.Clear();
 		return true;
+	}
+	
+	else
+	if(settings["IL"] && vars.hasSplit.Count == 0){
+		foreach (var mission in vars.mAddresses) {
+			if (settings[mission.Value] && vars.watcherListIL[mission.Value].Current == 17 && (vars.watcherListIL[mission.Value].Old == 0 || vars.watcherListIL[mission.Value].Old == 1)){
+				vars.IGToffset = current.IGT;
+				return true;
+			}
+		}
 	}
 }
