@@ -833,14 +833,4 @@ reset{
 		vars.errandTracker.Clear();
 		return true;
 	}
-	
-	else
-	if(settings["IL"] && vars.hasSplit.Count == 0){
-		foreach (var mission in vars.mAddresses) {
-			if (settings[mission.Value] && vars.watcherListIL[mission.Value].Current == 17 && (vars.watcherListIL[mission.Value].Old == 0 || vars.watcherListIL[mission.Value].Old == 1)){
-				vars.IGToffset = current.IGT;
-				return true;
-			}
-		}
-	}
 }
