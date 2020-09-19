@@ -707,9 +707,8 @@ When you would normally pause at Jimmy's room");
 			//IL Toggles	
 	settings.Add("IL", false, "Individual Level toggle");
 	settings.SetToolTip("IL", @"Toggle for Timer start/reset
-Will start when a selected mission is started
-Will reset if no automatic splits have occured
-Automatcly removes save IGT when starting/reseting");
+Will start/reset on first mission in selection order
+Automatically removes save IGT when starting/reseting");
 			
 	 // ------------------------- End of Settings
 }
@@ -819,9 +818,12 @@ start{
 	else
 	if(settings["IL"]){
 		foreach (var mission in vars.mAddresses) {
-			if (settings[mission.Value] && vars.watcherListIL[mission.Value].Current == 17 && (vars.watcherListIL[mission.Value].Old == 0 || vars.watcherListIL[mission.Value].Old == 1)){
-				vars.IGToffset = current.IGT;
-				return true;
+			if (settings[mission.Value]){
+				if (vars.watcherListIL[mission.Value].Current == 17 && (vars.watcherListIL[mission.Value].Old == 0 || vars.watcherListIL[mission.Value].Old == 1)){
+					vars.IGToffset = current.IGT;
+					return true;
+				}
+				break;
 			}
 		}
 	}
@@ -832,5 +834,18 @@ reset{
 		vars.hasSplit.Clear();
 		vars.errandTracker.Clear();
 		return true;
+	}
+	
+	else
+	if(settings["IL"]){
+		foreach (var mission in vars.mAddresses) {
+			if (settings[mission.Value]){
+				if (vars.watcherListIL[mission.Value].Current == 17 && (vars.watcherListIL[mission.Value].Old == 0 || vars.watcherListIL[mission.Value].Old == 1)){
+					vars.IGToffset = current.IGT;
+					return true;
+				}
+				break;
+			}
+		}
 	}
 }
