@@ -707,9 +707,9 @@ When you would normally pause at Jimmy's room");
 			//IL Toggles	
 	settings.Add("IL", false, "Individual Level toggle");
 	settings.SetToolTip("IL", @"Toggle for Timer start/reset
-					Will start when a selected mission is started
-					Will reset if no automatic splits have occured
-					Automatcly removes save IGT when starting/reseting");
+Will start when a selected mission is started
+Will reset if no automatic splits have occured
+Automatcly removes save IGT when starting/reseting");
 			
 	 // ------------------------- End of Settings
 }
