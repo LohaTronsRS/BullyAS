@@ -838,7 +838,7 @@ start{
 	if(settings["IL"]){
 		foreach (var mission in vars.mAddresses) {
 			if (settings[mission.Value]){
-				if (vars.watcherListIL[mission.Value].Current == 17 && (vars.watcherListIL[mission.Value].Old == 0 || vars.watcherListIL[mission.Value].Old == 1)){
+				if (vars.watcherListIL[mission.Value].Current == 17 && (vars.watcherListIL[mission.Value].Old == 0 || vars.watcherListIL[mission.Value].Old == 1 || vars.watcherListIL[mission.Value].Old == 16)){
 					vars.IGToffset = current.IGT;
 					return true;
 				}
@@ -859,7 +859,7 @@ reset{
 	if(settings["IL"]){
 		foreach (var mission in vars.mAddresses) {
 			if (settings[mission.Value]){
-				if (vars.watcherListIL[mission.Value].Current == 17 && (vars.watcherListIL[mission.Value].Old == 0 || vars.watcherListIL[mission.Value].Old == 1)){
+				if (vars.watcherListIL[mission.Value].Current == 17 && (vars.watcherListIL[mission.Value].Old == 0 || vars.watcherListIL[mission.Value].Old == 1 || vars.watcherListIL[mission.Value].Old == 16)){
 					vars.IGToffset = current.IGT;
 					return true;
 				}
