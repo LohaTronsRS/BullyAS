@@ -1,4 +1,4 @@
-state("Bully", "Steam"){
+state("Bully"){
 	int IGT : "Bully.exe", 0x81A340;
 	byte M1State : 0x1CC4328, 0x1C;
 	byte LMState : 0x1CC4328, 0x2F2;
@@ -707,7 +707,8 @@ When you would normally pause at Jimmy's room");
 			//IL Toggles	
 	settings.Add("IL", false, "Individual Level toggle");
 	settings.SetToolTip("IL", @"Toggle for Timer start/reset
-Will start/reset on first mission in selection order
+Will Start/Reset on first mission in selection order
+Start/Reset does not work on mission retry after a fail, a save must be reloaded
 Automatically removes save IGT when starting/reseting");
 
 	// --- MISC
@@ -718,36 +719,31 @@ Automatically removes save IGT when starting/reseting");
 
 init{
 	
-    if (timer.CurrentTimingMethod == TimingMethod.RealTime && settings["IGT_message"]){
-        var message = MessageBox.Show(
-            "You need to be using In-Game Time\nPress OK to switch", 
-            "LiveSplit | Bully Auto Splittter", MessageBoxButtons.OK, MessageBoxIcon.Information);
+	if (timer.CurrentTimingMethod == TimingMethod.RealTime && settings["IGT_message"]){
+		var message = MessageBox.Show(
+		    "You need to be using In-Game Time\nPress OK to switch", 
+		    "LiveSplit | Bully Auto Splittter", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-        if (message == DialogResult.OK){
-            timer.CurrentTimingMethod = TimingMethod.GameTime;
-        }
-    }
-	
-	switch (modules.First().ModuleMemorySize){
-		case 0x1D49000: version = "Steam"; break;
-		default: version = "Undetected"; break;
+		if (message == DialogResult.OK){
+		    timer.CurrentTimingMethod = TimingMethod.GameTime;
+		}
 	}
-	
+    
 	if (current.M == 0){
 		throw new Exception("--Memory still loading--");}			//Idk how to word this correctly, but is required for MemoryWatcher
-		
+
 	vars.watcherList = new MemoryWatcherList();
 	vars.watcherListIL = new MemoryWatcherList();
-	
+
 	foreach ( var address in vars.mAddresses){
 		vars.watcherList.Add(new MemoryWatcher<byte>((IntPtr)current.M + address.Key) {Name = address.Value});
 		vars.watcherListIL.Add(new MemoryWatcher<byte>((IntPtr)current.M + address.Key + 0x2) {Name = address.Value});
 	}
-	
+
 	foreach ( var errand in vars.eAddresses){
 		vars.watcherList.Add(new MemoryWatcher<byte>(modules.First().BaseAddress + errand.Key) {Name = errand.Value});
 	}
-	
+
 	vars.hasSplit = new List<string>();
 	vars.errandTracker = new List<string>();
 	vars.IGToffset = new int();
