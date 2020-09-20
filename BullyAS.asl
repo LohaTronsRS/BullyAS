@@ -710,6 +710,10 @@ When you would normally pause at Jimmy's room");
 Will Start/Reset on first mission in selection order
 Start/Reset does not work on mission retry after a fail, a save must be reloaded
 Automatically removes save IGT when starting/reseting");
+	
+	settings.Add("CH2_FLIP", false, "Chapter 2 mission flip", "IL");
+	settings.SetToolTip("CH2_FLIP", @"Flips start order for HvG/LMS
+Will start on LMS instead");
 
 	// --- MISC
 	settings.Add("IGT_message", true, "Ask if Game Time should be used when the game opens");
@@ -833,7 +837,7 @@ start{
 	else
 	if(settings["IL"]){
 		foreach (var mission in vars.mAddresses) {
-			if (settings[mission.Value]){
+			if (settings[mission.Value] && !(mission.Value == "M_2_02" && settings["CH2_FLIP"] && settings["M_2_01"])){
 				if (vars.watcherListIL[mission.Value].Current == 17 && vars.watcherListIL[mission.Value].Old != 17){
 					vars.IGToffset = current.IGT;
 					vars.hasSplit.Clear();
@@ -855,7 +859,7 @@ reset{
 	else
 	if(settings["IL"]){
 		foreach (var mission in vars.mAddresses) {
-			if (settings[mission.Value]){
+			if (settings[mission.Value] && !(mission.Value == "M_2_02" && settings["CH2_FLIP"] && settings["M_2_01"])){
 				if (vars.watcherListIL[mission.Value].Current == 17 && vars.watcherListIL[mission.Value].Old != 17){
 					vars.IGToffset = current.IGT;
 					vars.hasSplit.Clear();
