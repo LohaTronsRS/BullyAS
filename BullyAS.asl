@@ -722,7 +722,7 @@ init{
 	if (timer.CurrentTimingMethod == TimingMethod.RealTime && settings["IGT_message"]){
 		var message = MessageBox.Show(
 		    "You need to be using In-Game Time\nPress OK to switch", 
-		    "LiveSplit | Bully Auto Splittter", MessageBoxButtons.OK, MessageBoxIcon.Information);
+		    "LiveSplit | Bully Auto Splitter", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
 		if (message == DialogResult.OK){
 		    timer.CurrentTimingMethod = TimingMethod.GameTime;
