@@ -1,4 +1,4 @@
-state("Bully"){
+state("Bully", "Steam"){
 	int IGT : "Bully.exe", 0x81A340;
 	byte M1State : 0x1CC4328, 0x1C;
 	byte LMState : 0x1CC4328, 0x2F2;
@@ -709,12 +709,31 @@ When you would normally pause at Jimmy's room");
 	settings.SetToolTip("IL", @"Toggle for Timer start/reset
 Will start/reset on first mission in selection order
 Automatically removes save IGT when starting/reseting");
+
+	// --- MISC
+	settings.Add("IGT_message", true, "Ask if Game Time should be used when the game opens");
 			
 	 // ------------------------- End of Settings
 }
 
 init{
-    if (current.M == 0){
+	
+    if (timer.CurrentTimingMethod == TimingMethod.RealTime && settings["IGT_message"]){
+        var message = MessageBox.Show(
+            "You need to be using In-Game Time\nPress OK to switch", 
+            "LiveSplit | Bully Auto Splittter", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+        if (message == DialogResult.OK){
+            timer.CurrentTimingMethod = TimingMethod.GameTime;
+        }
+    }
+	
+	switch (modules.First().ModuleMemorySize){
+		case 0x1D49000: version = "Steam"; break;
+		default: version = "Undetected"; break;
+	}
+	
+	if (current.M == 0){
 		throw new Exception("--Memory still loading--");}			//Idk how to word this correctly, but is required for MemoryWatcher
 		
 	vars.watcherList = new MemoryWatcherList();
