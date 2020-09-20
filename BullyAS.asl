@@ -836,6 +836,7 @@ start{
 			if (settings[mission.Value]){
 				if (vars.watcherListIL[mission.Value].Current == 17 && vars.watcherListIL[mission.Value].Old != 17){
 					vars.IGToffset = current.IGT;
+					vars.hasSplit.Clear();
 					return true;
 				}
 				break;
@@ -857,6 +858,7 @@ reset{
 			if (settings[mission.Value]){
 				if (vars.watcherListIL[mission.Value].Current == 17 && vars.watcherListIL[mission.Value].Old != 17){
 					vars.IGToffset = current.IGT;
+					vars.hasSplit.Clear();
 					return true;
 				}
 				break;
