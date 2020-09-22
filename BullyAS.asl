@@ -815,11 +815,11 @@ split{
 
 gameTime {
 	if(!settings["IL"]){
-		return TimeSpan.FromSeconds((double)current.IGT / 1000);
+		return TimeSpan.FromMilliseconds((double)current.IGT);
 	}
 	
 	else{
-		return TimeSpan.FromSeconds((double)(current.IGT - vars.IGToffset) / 1000);
+		return TimeSpan.FromMilliseconds((double)(current.IGT - vars.IGToffset));
 	}
 }
 
