@@ -1,9 +1,7 @@
 state("Bully"){
 	int IGT : "Bully.exe", 0x81A340;
 	byte M1State : 0x1CC4328, 0x1C;
-	byte LMState : 0x1CC4328, 0x2F2;
 	int M : 0x1CC4328;
-	byte C : 0x83CF82;
 }
 
 startup{
@@ -355,12 +353,8 @@ added it anyway in case any one wants to use it.");
 			settings.Add("M_5_11a", false, "Rescue Russell","M_5_11");
 			settings.Add("M_5_11b", false, "Take down the Clique Leaders","M_5_11");
 			settings.Add("M_5_11c", true, "Final Showdown","M_5_11");
-			settings.SetToolTip("M_5_11c", "Splits as the Crabblesnitch cutscene ends");
-			settings.Add("M_5_11d", false, "Gary KO'd","M_5_11"); 
-			settings.SetToolTip("M_5_11d", @"Somewhat experimental
-Chance of it splitting when it shouldn't 
-Use at your own risk!");
-
+			settings.SetToolTip("M_5_11c", "Final split for Any%");
+			
 	settings.Add("C_C_C", false, "Credits");
 	settings.SetToolTip("C_C_C", @"Splits after Credits
 When you would normally pause at Jimmy's room");
@@ -787,13 +781,6 @@ split{
 				return true;
 			}
 		}
-	}
-								// The somewhat experimental Gary KO split, Im not exactly sure what C does,
-								// It does switch states at earlier stages as well, but seems to be only once durring Gary's fight
-								// And right as you KO him ... so dicided to make this mess...
-	if (settings["M_5_11d"] && current.LMState == 17 && current.C == 1 && old.C == 0 && !vars.hasSplit.Contains("M_5_11d")){
-		vars.hasSplit.Add("M_5_11d");
-		return true;
 	}
 	
 	if (settings["ER"]){
