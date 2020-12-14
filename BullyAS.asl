@@ -700,14 +700,15 @@ When you would normally pause at Jimmy's room");
 
 			//IL Toggles	
 	settings.Add("IL", false, "Individual Level toggle");
-	settings.SetToolTip("IL", @"Toggle for Timer start/reset
-Will Start/Reset on first mission in selection order
-Start/Reset does not work on mission retry after a fail, a save must be reloaded
-Automatically removes save IGT when starting/reseting");
-	
-	settings.Add("CH2_FLIP", false, "Chapter 2 mission flip", "IL");
-	settings.SetToolTip("CH2_FLIP", @"Flips start order for HvG/LMS
-Will start on LMS instead");
+	settings.SetToolTip("IL", @"Toggle for Timer start
+Will start the timer at 0 on any selected mission,
+if the timer isn't already running.
+
+Start does not work on mission retry after a fail, the save MUST be reloaded!
+
+Resets based on the mission the timer started on,
+manual Reset clears auto-Resets memorized mission.
+");
 
 	// --- MISC
 	settings.Add("IGT_message", true, "Ask if Game Time should be used when the game opens");
@@ -746,6 +747,7 @@ init{
 	vars.errandTracker = new List<string>();
 	vars.IGToffset = new int();
 	vars.IGToffset = 0;
+	vars.ILStartAffix = "_STARTED";
 }
 
 update{
@@ -824,13 +826,15 @@ start{
 	else
 	if(settings["IL"]){
 		foreach (var mission in vars.mAddresses) {
-			if (settings[mission.Value] && !(mission.Value == "M_2_02" && settings["CH2_FLIP"] && settings["M_2_01"])){
+			if (settings[mission.Value]){
 				if (vars.watcherListIL[mission.Value].Current == 17 && vars.watcherListIL[mission.Value].Old != 17){
 					vars.IGToffset = current.IGT;
 					vars.hasSplit.Clear();
+					
+					vars.hasSplit.Add(mission.Value + vars.ILStartAffix);
+					current.timerPhase = TimerPhase.Paused;
 					return true;
 				}
-				break;
 			}
 		}
 	}
@@ -846,13 +850,15 @@ reset{
 	else
 	if(settings["IL"]){
 		foreach (var mission in vars.mAddresses) {
-			if (settings[mission.Value] && !(mission.Value == "M_2_02" && settings["CH2_FLIP"] && settings["M_2_01"])){
+			if (settings[mission.Value] && vars.hasSplit.Contains(mission.Value + vars.ILStartAffix)){
 				if (vars.watcherListIL[mission.Value].Current == 17 && vars.watcherListIL[mission.Value].Old != 17){
 					vars.IGToffset = current.IGT;
 					vars.hasSplit.Clear();
+					
+					vars.hasSplit.Add(mission.Value + vars.ILStartAffix);
+					current.timerPhase = TimerPhase.Paused;
 					return true;
 				}
-				break;
 			}
 		}
 	}
