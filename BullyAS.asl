@@ -3,7 +3,12 @@ state("Bully"){
 	byte M1State : 0x1CC4328, 0x1C;
 	int M : 0x1CC4328;
 }
-
+	// TODO CLEAN UP THIS MESS WHEN IM BORED BECAUSE HOLY F* THIS IS BECOMING NOT ONLY A SPAGHET
+	// THOSE COMING FROM THE AS INDEX PAGE OR WHATEVER PLEASE DON'T RELLY ON THIS AS A EXAMPLE ON HOW TO WRITE A AUTOSPLITTER, THIS IS A HOT MESS
+	// I JUST NEED TO FIND TIME TO CLEAN IT UP 
+	
+	// Thanks for stopping by :)
+	
 startup{
 	refreshRate = 30;
 	vars.mAddresses = new Dictionary<int, string> {
@@ -247,8 +252,11 @@ startup{
 		vars.eAddresses.Add(0x81B096 + (0x4*i),"ER_"+i);		// I probably should do the same with the mess above , but im too lazy
 	}															// also thanks for reading my comment in this section ... here ... have a imaginary cookie
 	
-	
-	
+	vars.colAdr = new Dictionary<int, string>{};				// Collectibles ... currently only gnomes
+	for (int i = 0; i < 25; i++ ){								// Will expand if requested/required
+		vars.colAdr.Add(0x7CEB54 + (0x2 * i), "GNOME_" + i);	// Regions ends for my own memory don't worry about this :)
+	}															// 25/Gnomes , 31/Transistor, 106/Rubberbands, 146/Cards, 173/Pumpkins, 192/Tombstones
+																
 	 // ------------------------- Settings    ... I wonder could i have written them better :thinking:
 		//-----Chapter 1-----//
 		
@@ -697,8 +705,83 @@ When you would normally pause at Jimmy's room");
 			settings.Add("ER_37",true, "Vehicular Vandalism 2","ER_BSI");
 			settings.SetToolTip("ER_37","Destroy the 11 parts of the car.");
 
+	// ---------- Collectibles
+		
+		settings.Add("COL", false, "Collectibles");
+		
+		// ---- Gnomes
+		
+			settings.Add("ALL_GNOME", false, "All Gnomes", "COL");
+			settings.SetToolTip("ALL_GNOME", @"Splits upon smashing all gnomes
+Selecting indivdual gnomes is optional");
+			
+			for(int i = 0; i < 25; i++){
+				settings.Add("GNOME_" + i, false, "Gnome " + (i + 1), "ALL_GNOME");
+			}
+			settings.SetToolTip("GNOME_0", @"Bullworth Town
+In the hedges in front of Police HQ.");
+			settings.SetToolTip("GNOME_1", @"Vale
+In the bushy corner of the front of the church exterior.");
+			settings.SetToolTip("GNOME_2", @"Vale
+Tad's yard, near his gazebo.");
+			settings.SetToolTip("GNOME_3", @"Vale
+Tad's front yard, near a small vine-grown lattice.");
+			settings.SetToolTip("GNOME_4", @"Blue Skies
+Backyard next to tattoo shop.");
+			settings.SetToolTip("GNOME_5", @"Vale
+Happy Endings Retirement home, in the front yard near the pond.");
+			settings.SetToolTip("GNOME_6", @"Vale
+Next to a mailbox at the house on the left
+after the intersection leading from Bullworth Town bridge.");
+			settings.SetToolTip("GNOME_7", @"Vale
+Front yard of house near the cul-de-sac,
+Enter through the front gate.");
+			settings.SetToolTip("GNOME_8", @"School
+Side lawn of Harrington House you mow during detention.");
+			settings.SetToolTip("GNOME_9", @"Vale
+In the yard of the second 'Lawn Mowing' with the four bird baths");
+			settings.SetToolTip("GNOME_10", @"Vale
+Yard across the street from Tad's house.");
+			settings.SetToolTip("GNOME_11", @"Vale
+Next to the front door of the house with the epic jump
+on the back patio that sends you to the beach");
+			settings.SetToolTip("GNOME_12", @"Vale
+Inside the little shed in the park near the port-a-potty
+Left one");
+			settings.SetToolTip("GNOME_13", @"Vale
+Inside the little shed in the park near the port-a-potty
+Right one");
+			settings.SetToolTip("GNOME_14", @"Blue skies
+Main asylum grounds beside 'the watcher' statue.");
+			settings.SetToolTip("GNOME_15", @"Vale
+Front porch of fenced-in house across the street from the mowing job house.
+Jump the missing fence section on the west side of the house.");
+			settings.SetToolTip("GNOME_16", @"Vale
+Offshore on the beach facing the sunken pirate ship.");
+			settings.SetToolTip("GNOME_17", @"Vale
+Next to the front door of the house due east of the retirement home.");
+			settings.SetToolTip("GNOME_18", @"Blue Skies
+On the barge off the industrial docks.");
+			settings.SetToolTip("GNOME_19", @"Vale
+Next to Tad's standalone garage.");
+			settings.SetToolTip("GNOME_20", @"Vale
+On the west side of the house across from Tad's garage.");
+			settings.SetToolTip("GNOME_21", @"Vale
+Beside the front porch of the first house on the left after the bridge
+that leads from Bullworth Town to Vale.");
+			settings.SetToolTip("GNOME_22", @"Vale
+Besides the entrace to Bullworth Park. Near the retirment home.
+Left side.");
+			settings.SetToolTip("GNOME_23", @"Vale
+Besides the entrace to Bullworth Park. Near the retirment home.
+Right side.");
+			settings.SetToolTip("GNOME_24", @"Vale
+Beside the southeast entrace to Bullworth Park.");
+		
+		// --- Todo? if Required
 
-			//IL Toggles	
+	// ---------- IL Toggles
+	
 	settings.Add("IL", false, "Individual Level toggle");
 	settings.SetToolTip("IL", @"Toggle for Timer start
 Will start the timer at 0 on any selected mission,
@@ -742,9 +825,14 @@ init{
 	foreach ( var errand in vars.eAddresses){
 		vars.watcherList.Add(new MemoryWatcher<byte>(modules.First().BaseAddress + errand.Key) {Name = errand.Value});
 	}
+	
+	foreach ( var col in vars.colAdr){
+		vars.watcherList.Add(new MemoryWatcher<byte>(modules.First().BaseAddress + col.Key) {Name = col.Value});
+	}
 
 	vars.hasSplit = new List<string>();
 	vars.errandTracker = new List<string>();
+	vars.gnomeTracker = new List<string>();
 	vars.IGToffset = new int();
 	vars.IGToffset = 0;
 	vars.ILStartAffix = "_STARTED";
@@ -761,6 +849,7 @@ update{
 	if ((old.timerPhase != current.timerPhase && old.timerPhase != TimerPhase.Paused) && current.timerPhase == TimerPhase.Running){
 		vars.hasSplit.Clear();
 		vars.errandTracker.Clear();
+		vars.gnomeTracker.Clear();
 	}
 }
 
@@ -789,15 +878,31 @@ split{
 		foreach (var errand in vars.eAddresses) {						//Responsible for the whole errand shazamble 
 			if(vars.watcherList[errand.Value].Current == 1 && vars.watcherList[errand.Value].Old == 0 && !vars.errandTracker.Contains(errand.Value)){
 				vars.errandTracker.Add(errand.Value);
-				if(settings["ER_ALL"] && vars.errandTracker.Count == 50){
+				if(settings["ER_ALL"] && vars.errandTracker.Count >= 50){
 					return true;
 				}
 				if(settings[errand.Value]){
 					return true;
 				}
-				
 			}
-			
+		}
+	}
+	
+	if (settings["COL"]){
+		if (settings["ALL_GNOME"]){				//You shall be gnomed.
+			foreach (var gnome in vars.colAdr){
+				if(vars.watcherList[gnome.Value].Current == 1 && vars.watcherList[gnome.Value].Old == 0 && !vars.gnomeTracker.Contains(gnome.Value)){
+					vars.gnomeTracker.Add(gnome.Value);
+					if(vars.gnomeTracker.Count >= 25){
+						print(gnome.Value + " Smashed and DONE");
+						return true;
+					}
+					if(settings[gnome.Value]){
+						print(gnome.Value + " Collected");
+						return true;
+					}
+				}
+			}
 		}
 	}
 }
@@ -820,6 +925,7 @@ start{
 	if (current.M1State == 17 && old.M1State == 0 && !settings["IL"]){				
 		vars.hasSplit.Clear();
 		vars.errandTracker.Clear();
+		vars.gnomeTracker.Clear();
 		return true;
 	}
 	
@@ -829,7 +935,10 @@ start{
 			if (settings[mission.Value]){
 				if (vars.watcherListIL[mission.Value].Current == 17 && vars.watcherListIL[mission.Value].Old != 17){
 					vars.IGToffset = current.IGT;
+					
 					vars.hasSplit.Clear();
+					vars.errandTracker.Clear();
+					vars.gnomeTracker.Clear();
 					
 					vars.hasSplit.Add(mission.Value + vars.ILStartAffix);
 					current.timerPhase = TimerPhase.Paused;
@@ -844,6 +953,7 @@ reset{
 	if (current.M1State == 17 && old.M1State == 0 && !settings["IL"]){
 		vars.hasSplit.Clear();
 		vars.errandTracker.Clear();
+		vars.gnomeTracker.Clear();
 		return true;
 	}
 	
@@ -853,7 +963,10 @@ reset{
 			if (settings[mission.Value] && vars.hasSplit.Contains(mission.Value + vars.ILStartAffix)){
 				if (vars.watcherListIL[mission.Value].Current == 17 && vars.watcherListIL[mission.Value].Old != 17){
 					vars.IGToffset = current.IGT;
+					
 					vars.hasSplit.Clear();
+					vars.errandTracker.Clear();
+					vars.gnomeTracker.Clear();
 					
 					vars.hasSplit.Add(mission.Value + vars.ILStartAffix);
 					current.timerPhase = TimerPhase.Paused;
