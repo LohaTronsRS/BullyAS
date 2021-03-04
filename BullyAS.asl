@@ -894,11 +894,9 @@ split{
 				if(vars.watcherList[gnome.Value].Current == 1 && vars.watcherList[gnome.Value].Old == 0 && !vars.gnomeTracker.Contains(gnome.Value)){
 					vars.gnomeTracker.Add(gnome.Value);
 					if(vars.gnomeTracker.Count >= 25){
-						print(gnome.Value + " Smashed and DONE");
 						return true;
 					}
 					if(settings[gnome.Value]){
-						print(gnome.Value + " Collected");
 						return true;
 					}
 				}
