@@ -294,9 +294,7 @@ startup{
 			    settings.SetToolTip("M_1_01b", "Splits when entering Boys Dorm.");
 			    settings.SetToolTip("M_1_01c", "Splits after mission ends.");
 		    settings.Add("M_1_02", false, "Mission Tutorial", "CH1");
-		    settings.SetToolTip("M_1_02", @"Splits after walking into 'This is Your School' mission marker.
-Unsure why it's counted as seperate mission, 
-added it anyway in case any one wants to use it.");
+		    settings.SetToolTip("M_1_02", "Splits after walking into 'This is Your School' mission marker.\nUnsure why it's counted as seperate mission,\nadded it anyway in case any one wants to use it.");
 
 		settings.Add("M_1_03", true, "This is Your School", "CH1");
 		settings.Add("M_1_04", false,"Get to Class", "CH1");
@@ -793,89 +791,55 @@ Selecting indivdual gnomes is optional");
 			}
 
         // ---- Gnome List
-			settings.SetToolTip("GNOME_0", @"Bullworth Town
-In the hedges in front of Police HQ.");
+			settings.SetToolTip("GNOME_0", "Bullworth Town\nIn the hedges in front of Police HQ.");
 
-			settings.SetToolTip("GNOME_1", @"Vale
-In the bushy corner of the front of the church exterior.");
+			settings.SetToolTip("GNOME_1", "Vale\nIn the bushy corner of the front of the church exterior.");
 
-			settings.SetToolTip("GNOME_2", @"Vale
-Tad's yard, near his gazebo.");
+			settings.SetToolTip("GNOME_2", "Vale\nTad's yard, near his gazebo.");
 
-			settings.SetToolTip("GNOME_3", @"Vale
-Tad's front yard, near a small vine-grown lattice.");
+			settings.SetToolTip("GNOME_3", "Vale\nTad's front yard, near a small vine-grown lattice.");
 
-			settings.SetToolTip("GNOME_4", @"Blue Skies
-Backyard next to tattoo shop.");
+			settings.SetToolTip("GNOME_4", "Blue Skies\nBackyard next to tattoo shop.");
 
-			settings.SetToolTip("GNOME_5", @"Vale
-Happy Endings Retirement home, in the front yard near the pond.");
+			settings.SetToolTip("GNOME_5", "Vale\nHappy Endings Retirement home, in the front yard near the pond.");
 
-			settings.SetToolTip("GNOME_6", @"Vale
-Next to a mailbox at the house on the left
-after the intersection leading from Bullworth Town bridge.");
+			settings.SetToolTip("GNOME_6", "Vale\nNext to a mailbox at the house on the left\nafter the intersection leading from Bullworth Town bridge.");
 
-			settings.SetToolTip("GNOME_7", @"Vale
-Front yard of house near the cul-de-sac,
-Enter through the front gate.");
+			settings.SetToolTip("GNOME_7", "Vale\nFront yard of house near the cul-de-sac,\nEnter through the front gate.");
 
-			settings.SetToolTip("GNOME_8", @"School
-Side lawn of Harrington House you mow during detention.");
+			settings.SetToolTip("GNOME_8", "School\nSide lawn of Harrington House you mow during detention.");
 
-			settings.SetToolTip("GNOME_9", @"Vale
-In the yard of the second 'Lawn Mowing' with the four bird baths");
+			settings.SetToolTip("GNOME_9", "Vale\nIn the yard of the second 'Lawn Mowing' with the four bird baths");
 
-			settings.SetToolTip("GNOME_10", @"Vale
-Yard across the street from Tad's house.");
+			settings.SetToolTip("GNOME_10", "Vale\nYard across the street from Tad's house.");
 
-			settings.SetToolTip("GNOME_11", @"Vale
-Next to the front door of the house with the epic jump
-on the back patio that sends you to the beach");
+			settings.SetToolTip("GNOME_11", "Vale\nNext to the front door of the house with the epic jump\non the back patio that sends you to the beach");
 
-			settings.SetToolTip("GNOME_12", @"Vale
-Inside the little shed in the park near the port-a-potty
-Left one");
+			settings.SetToolTip("GNOME_12", "Vale\nInside the little shed in the park near the port-a-potty\nLeft one");
 
-			settings.SetToolTip("GNOME_13", @"Vale
-Inside the little shed in the park near the port-a-potty
-Right one");
+			settings.SetToolTip("GNOME_13", "Vale\nInside the little shed in the park near the port-a-potty\nRight one");
 
-			settings.SetToolTip("GNOME_14", @"Blue skies
-Main asylum grounds beside 'the watcher' statue.");
+			settings.SetToolTip("GNOME_14", "Blue skies\nMain asylum grounds beside 'the watcher' statue.");
 
-			settings.SetToolTip("GNOME_15", @"Vale
-Front porch of fenced-in house across the street from the mowing job house.
-Jump the missing fence section on the west side of the house.");
+			settings.SetToolTip("GNOME_15", "Vale\nFront porch of fenced-in house across the street from the mowing job house.\nJump the missing fence section on the west side of the house.");
 
-			settings.SetToolTip("GNOME_16", @"Vale
-Offshore on the beach facing the sunken pirate ship.");
+			settings.SetToolTip("GNOME_16", "Vale\nOffshore on the beach facing the sunken pirate ship.");
 
-			settings.SetToolTip("GNOME_17", @"Vale
-Next to the front door of the house due east of the retirement home.");
+			settings.SetToolTip("GNOME_17", "Vale\nNext to the front door of the house due east of the retirement home.");
 
-			settings.SetToolTip("GNOME_18", @"Blue Skies
-On the barge off the industrial docks.");
+			settings.SetToolTip("GNOME_18", "Blue Skies\nOn the barge off the industrial docks.");
 
-			settings.SetToolTip("GNOME_19", @"Vale
-Next to Tad's standalone garage.");
+			settings.SetToolTip("GNOME_19", "Vale\nNext to Tad's standalone garage.");
 
-			settings.SetToolTip("GNOME_20", @"Vale
-On the west side of the house across from Tad's garage.");
+			settings.SetToolTip("GNOME_20", "Vale\nOn the west side of the house across from Tad's garage.");
 
-			settings.SetToolTip("GNOME_21", @"Vale
-Beside the front porch of the first house on the left after the bridge
-that leads from Bullworth Town to Vale.");
+			settings.SetToolTip("GNOME_21", "Vale\nBeside the front porch of the first house on the left after the bridge\nthat leads from Bullworth Town to Vale.");
 
-			settings.SetToolTip("GNOME_22", @"Vale
-Besides the entrace to Bullworth Park. Near the retirment home.
-Left side.");
+			settings.SetToolTip("GNOME_22", "Vale\nBesides the entrace to Bullworth Park. Near the retirment home.\nLeft side.");
 
-			settings.SetToolTip("GNOME_23", @"Vale
-Besides the entrace to Bullworth Park. Near the retirment home.
-Right side.");
+			settings.SetToolTip("GNOME_23", "Vale\nBesides the entrace to Bullworth Park.\nNear the retirment home.Right side.");
 
-			settings.SetToolTip("GNOME_24", @"Vale
-Beside the southeast entrace to Bullworth Park.");
+			settings.SetToolTip("GNOME_24", "Vale\nBeside the southeast entrace to Bullworth Park.");
 		
 
 //////////////////////////////////////////////////////////////////////////
