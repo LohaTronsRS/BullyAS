@@ -13,269 +13,269 @@ state("Bully"){
 
 startup{
 	refreshRate = 30;
-	vars.mAddresses = new Dictionary<int, string> {
+	vars.mAddresses = new Dictionary<string, int> {
 
 						//Chapter 1
 					        //---Welcome to Bullworth	
-		{0x1A, "M_1_01a"}, 				//Meet the Principal
-		{0x20, "M_1_01b"},				//Bully Fight
-		{0x26, "M_1_01c"},				//Meet Gary
+		{"M_1_01a",	0x1A}, 				//Meet the Principal
+		{"M_1_01b",	0x20},				//Bully Fight
+		{"M_1_01c",	0x26},				//Meet Gary
 
-		{0x2C, "M_1_02"},				//Mission Tutorial
-		{0x32, "M_1_03"},				//This is Your School
-		{0x38, "M_1_04"},				//Get to Class
-		{0x3E, "M_1_05"},				//The Setup
-		{0x4A, "M_1_06"},				//Slingshot
-		{0x50, "M_1_07"},				//Save Algie
-		{0x8, "M_1_0E"},				//Peter's Errand
-		{0x56, "M_1_08"},				//A Little Help
-		{0x7A, "M_1_09"},				//Defend Bucky
-		{0x80, "M_1_10"},				//That Bitch
-		{0x8C, "M_1_11"},				//The Candidate
-		{0x9E, "M_1_12"},				//Halloween
-		{0xBC, "M_1_13"},				//Help Gary
-		{0xC2, "M_1_14"},				//Russell in the Hole
+		{"M_1_02",	0x2C},				//Mission Tutorial
+		{"M_1_03",	0x32},				//This is Your School
+		{"M_1_04",	0x38},				//Get to Class
+		{"M_1_05",	0x3E},				//The Setup
+		{"M_1_06",	0x4A},				//Slingshot
+		{"M_1_07",	0x50},				//Save Algie
+		{"M_1_0E",	0x8},				//Peter's Errand
+		{"M_1_08",	0x56},				//A Little Help
+		{"M_1_09",	0x7A},				//Defend Bucky
+		{"M_1_10",	0x80},				//That Bitch
+		{"M_1_11",	0x8C},				//The Candidate
+		{"M_1_12",	0x9E},				//Halloween
+		{"M_1_13",	0xBC},				//Help Gary
+		{"M_1_14",	0xC2},				//Russell in the Hole
 						
 
 						//Chapter 2
-		{0xEC, "M_2_02"},				//Hattrick vs. Galloway
-		{0xF2, "M_2_01"},				//Last Minute Shopping
-		{0x182, "M_2_03"},				//Prep Challenge
-		{0xE6, "M_2_03R"},				//Prep Challenge Rounds (1 - Chad, 2 - Justin, 3 - )
-		{0x10A, "M_2_04"},				//The Eggs
-		{0x110, "M_2_05"},				//Movie Tickets
-		{0x116, "M_2_06"},				//Carnival Date
-		{0x122, "M_2_07"},				//Race the Vale
-		{0x128, "M_2_08"},				//Beach Rumble
-		{0x188, "M_2_09"},				//Tad's House
-		{0x194, "M_2_10"},				//Boxing Challenge
-		{0x19A, "M_2_11"},				//Dishonorable Fight
+		{"M_2_02",	0xEC},				//Hattrick vs. Galloway
+		{"M_2_01",	0xF2},				//Last Minute Shopping
+		{"M_2_03",	0x182},				//Prep Challenge
+		{"M_2_03R",	0xE6},				//Prep Challenge Rounds (1 - Chad, 2 - Justin, 3 - )
+		{"M_2_04",	0x10A},				//The Eggs
+		{"M_2_05",	0x110},				//Movie Tickets
+		{"M_2_06",	0x116},				//Carnival Date
+		{"M_2_07",	0x122},				//Race the Vale
+		{"M_2_08",	0x128},				//Beach Rumble
+		{"M_2_09",	0x188},				//Tad's House
+		{"M_2_10",	0x194},				//Boxing Challenge
+		{"M_2_11",	0x19A},				//Dishonorable Fight
 					
 
 						//Chapter 3
-		{0x1CA, "M_3_01"},				//Balls of Snow
-		{0x1D0, "M_3_02"},				//Miracle on Bullworth St.
-		{0x1B2, "M_3_03"},				//Christmas is Here
-		{0x1D6, "M_3_04"},				//Nutcrackin'
-		{0x1DC, "M_3_05"},				//Rudy the Red Nosed Santa
-		{0x1E2, "M_3_06"},				//Jealous Johnny
-		{0x1E8, "M_3_07"},				//Bait
-		{0x1F4, "M_3_08"},				//Wrong Part of Town
-		{0x1FA, "M_3_09"},				//Tagging
-		{0x206, "M_3_10"},				//Lola's Race
-		{0x20C, "M_3_11"},				//The Tenements
-		{0x212, "M_3_12"},				//The Rumble
-		{0x218, "M_3_13"},				//Fighting Johnny Vincent
+		{"M_3_01",	0x1CA},				//Balls of Snow
+		{"M_3_02",	0x1D0},				//Miracle on Bullworth St.
+		{"M_3_03",	0x1B2},				//Christmas is Here
+		{"M_3_04",	0x1D6},				//Nutcrackin'
+		{"M_3_05",	0x1DC},				//Rudy the Red Nosed Santa
+		{"M_3_06",	0x1E2},				//Jealous Johnny
+		{"M_3_07",	0x1E8},				//Bait
+		{"M_3_08",	0x1F4},				//Wrong Part of Town
+		{"M_3_09",	0x1FA},				//Tagging
+		{"M_3_10",	0x206},				//Lola's Race
+		{"M_3_11",	0x20C},				//The Tenements
+		{"M_3_12",	0x212},				//The Rumble
+		{"M_3_13",	0x218},				//Fighting Johnny Vincent
 		
 
 						//Chapter 4
-		{0x236, "M_4_01"},				//Stronghold Assault				
-		{0x23C, "M_4_02"},				//Nerd Boss Fight		
-		{0x25A, "M_4_03"},				//Funhouse Fun				
-		{0x24E, "M_4_04"},				//Paparazzi	
-		{0x254, "M_4_05"},				//Defender of the Castle
-		{0x260, "M_4_06"},				//Nice Outfit
-		{0x266, "M_4_07"},				//Discretion Assured
-		{0x26C, "M_4_08"},				//The Big Game
-		{0x272, "M_4_09"},				//Jock Boss Fight
+		{"M_4_01",	0x236},				//Stronghold Assault				
+		{"M_4_02",	0x23C},				//Nerd Boss Fight		
+		{"M_4_03",	0x25A},				//Funhouse Fun				
+		{"M_4_04",	0x24E},				//Paparazzi	
+		{"M_4_05",	0x254},				//Defender of the Castle
+		{"M_4_06",	0x260},				//Nice Outfit
+		{"M_4_07",	0x266},				//Discretion Assured
+		{"M_4_08",	0x26C},				//The Big Game
+		{"M_4_09",	0x272},				//Jock Boss Fight
 		
 
 						//Chapter 5
-		{0x284, "M_5_01"},				//Making a Mark				
-		{0x28A, "M_5_02"},				//Rats in the Library
-		{0x290, "M_5_03"},				//The Gym is Burning
-		{0x296, "M_5_04"},				//Finding Johnny Vincent
-		{0x2A2, "M_5_05"},				//Revenge on Mr. Burton
-		{0x2B4, "M_5_06"},				//Preppies Vandalised
-		{0x2C6, "M_5_07"},				//Go See The Principal
-		{0x2CC, "M_5_08"},				//Busting In Part 1
-		{0x2D2, "M_5_09"},				//Busting In Part 2
-		{0x2DE, "M_5_10"},				//Showdown at the Plant
-		{0x2E4, "M_5_11a"},				//Rescue Russell
-		{0x2EA, "M_5_11b"},				//Take down the Clique Leaders
-		{0x2F0, "M_5_11c"},				//Final Showdown
+		{"M_5_01",	0x284},				//Making a Mark				
+		{"M_5_02",	0x28A},				//Rats in the Library
+		{"M_5_03",	0x290},				//The Gym is Burning
+		{"M_5_04",	0x296},				//Finding Johnny Vincent
+		{"M_5_05",	0x2A2},				//Revenge on Mr. Burton
+		{"M_5_06",	0x2B4},				//Preppies Vandalised
+		{"M_5_07",	0x2C6},				//Go See The Principal
+		{"M_5_08",	0x2CC},				//Busting In Part 1
+		{"M_5_09",	0x2D2},				//Busting In Part 2
+		{"M_5_10",	0x2DE},				//Showdown at the Plant
+		{"M_5_11a",	0x2E4},				//Rescue Russell
+		{"M_5_11b",	0x2EA},				//Take down the Clique Leaders
+		{"M_5_11c",	0x2F0},				//Final Showdown
 		
 
 						//Side missions
 							//Little Helps
-		{0x5C, "M_X_LH2"},				//A Little Help 2
-		{0x62, "M_X_LH3"},				//A Little Help 3
-		{0x68, "M_X_LH4"},				//A Little Help 4
-		{0x6E, "M_X_LH5"},				//A Little Help 5
-		{0x74, "M_X_LH6"},				//A Little Help 6
+		{"M_X_LH2",	0x5C},				//A Little Help 2
+		{"M_X_LH3",	0x62},				//A Little Help 3
+		{"M_X_LH4",	0x68},				//A Little Help 4
+		{"M_X_LH5",	0x6E},				//A Little Help 5
+		{"M_X_LH6",	0x74},				//A Little Help 6
 		
 
 						//Side missions
-		{0x86, "M_X_01"},				//The Diary
-		{0xB6, "M_X_02"},				//Character Sheets
-		{0xAA, "M_X_03"},				//The Big Prank
-		{0x1A6, "M_X_04"},				//Small Offences
-		{0x11C, "M_X_05"},				//Panty Raid
-		{0x104, "M_X_06"},				//Comic Klepto
-		{0x18E, "M_X_07"},				//Weed Killer
-		{0x1BE, "M_X_08"},				//Cook's Crush
-		{0x1EE, "M_X_09"},				//Glass House
-		{0x21E, "M_X_10"},				//Discreet Deliveries
-		{0x22A, "M_X_11"},				//Here's to you Ms. Philips
-		{0x230, "M_X_12"},				//Cook's Date
-		{0x242, "M_X_13"},				//Galloway Away
-		{0x27E, "M_X_14"},				//Cheating Time
-		{0x2A8, "M_X_15"},				//Smash It Up
-		{0x2AE, "M_X_16"},				//The Collector
-		{0x2D8, "M_X_17"},				//Mailbox Armageddon
+		{"M_X_01",	0x86},				//The Diary
+		{"M_X_02",	0xB6},				//Character Sheets
+		{"M_X_03",	0xAA},				//The Big Prank
+		{"M_X_04",	0x1A6},				//Small Offences
+		{"M_X_05",	0x11C},				//Panty Raid
+		{"M_X_06",	0x104},				//Comic Klepto
+		{"M_X_07",	0x18E},				//Weed Killer
+		{"M_X_08",	0x1BE},				//Cook's Crush
+		{"M_X_09",	0x1EE},				//Glass House
+		{"M_X_10",	0x21E},				//Discreet Deliveries
+		{"M_X_11",	0x22A},				//Here's to you Ms. Philips
+		{"M_X_12",	0x230},				//Cook's Date
+		{"M_X_13",	0x242},				//Galloway Away
+		{"M_X_14",	0x27E},				//Cheating Time
+		{"M_X_15",	0x2A8},				//Smash It Up
+		{"M_X_16",	0x2AE},				//The Collector
+		{"M_X_17",	0x2D8},				//Mailbox Armageddon
 		
         
 						//Challenges
-		{0x1C4, "M_C_N"},				//Nerd Challenge
-		{0x200, "M_C_G"},				//Greaser Challenge
-		{0x248, "M_C_J"},				//Jocks Challenge
-		{0x29C, "M_C_T"},				//Townie Challenge
+		{"M_C_N",	0x1C4},				//Nerd Challenge
+		{"M_C_G",	0x200},				//Greaser Challenge
+		{"M_C_J",	0x248},				//Jocks Challenge
+		{"M_C_T",	0x29C},				//Townie Challenge
 		
 
 						//Side activities
 							//Boxing
-		{0xCE, "M_BX_01"},				    //Chad
-		{0xD4, "M_BX_02"},				    //Justin
-		{0xDA, "M_BX_03"},				    //Parker
-		{0xE0, "M_BX_04"},				    //Bryce
+		{"M_BX_01",	0xCE},				    //Chad
+		{"M_BX_02",	0xD4},				    //Justin
+		{"M_BX_03",	0xDA},				    //Parker
+		{"M_BX_04",	0xE0},				    //Bryce
 		
 
 							//Dodgeball
-		{0x3EC, "M_DB_01"},				//vs. Team Prep
-		{0x3F2, "M_DB_02"},				//vs. Team Greaser
-		{0x3F8, "M_DB_03"},				//vs. Team Jock
-		{0x3FE, "M_DB_04"},				//vs. Team Townie
+		{"M_DB_01",	0x3EC},				//vs. Team Prep
+		{"M_DB_02",	0x3F2},				//vs. Team Greaser
+		{"M_DB_03",	0x3F8},				//vs. Team Jock
+		{"M_DB_04",	0x3FE},				//vs. Team Townie
 		
 
 							//Paper Route
-		{0xF8, "M_PR_01"},				    //Intro
-		{0xFE, "M_PR_D"},				    // 1 = 10 , 2 = 14 , 3 = 19 , 4 = 24 Deliveries
+		{"M_PR_01",	0xF8},				    //Intro
+		{"M_PR_D",	0xFE},				    // 1 = 10 , 2 = 14 , 3 = 19 , 4 = 24 Deliveries
 		
 
 							//Bike Races
-		{0x12E, "M_BR_V01"},			    //Bullworth Vale Bike Race 1
-		{0x134, "M_BR_V02"},			    //Bullworth Vale Bike Race 2
-		{0x13A, "M_BR_V03"},			    //Bullworth Vale Bike Race 3
-		{0x140, "M_BR_V04"},			    //Bullworth Vale Bike Race 4
-		{0x146, "M_BR_V05"},			    //Bullworth Vale Bike Race 5
-		{0x14C, "M_BR_V06"},			    //Bullworth Vale Bike Race 6
-		{0x152, "M_BR_V07"},			    //Bullworth Vale Bike Race 7
+		{"M_BR_V01",	0x12E},			    //Bullworth Vale Bike Race 1
+		{"M_BR_V02",	0x134},			    //Bullworth Vale Bike Race 2
+		{"M_BR_V03",	0x13A},			    //Bullworth Vale Bike Race 3
+		{"M_BR_V04",	0x140},			    //Bullworth Vale Bike Race 4
+		{"M_BR_V05",	0x146},			    //Bullworth Vale Bike Race 5
+		{"M_BR_V06",	0x14C},			    //Bullworth Vale Bike Race 6
+		{"M_BR_V07",	0x152},			    //Bullworth Vale Bike Race 7
 		
-		{0x158, "M_BR_T01"},			    //Bullworth Town Bike Race 1
-		{0x15E, "M_BR_T02"},			    //Bullworth Town Bike Race 2
-		{0x164, "M_BR_T03"},			    //Bullworth Town Bike Race 3
-		{0x16A, "M_BR_T04"},			    //Bullworth Town Bike Race 4
+		{"M_BR_T01",	0x158},			    //Bullworth Town Bike Race 1
+		{"M_BR_T02",	0x15E},			    //Bullworth Town Bike Race 2
+		{"M_BR_T03",	0x164},			    //Bullworth Town Bike Race 3
+		{"M_BR_T04",	0x16A},			    //Bullworth Town Bike Race 4
 		
-		{0x170, "M_BR_NC01"},			    //New Coventry Race 1
-		{0x176, "M_BR_NC02"},			    //New Coventry Race 2
+		{"M_BR_NC01",	0x170},			    //New Coventry Race 1
+		{"M_BR_NC02",	0x176},			    //New Coventry Race 2
 		
-		{0x17C, "M_BR_A01"},			    //Bullworth Academy Race 1
+		{"M_BR_A01",	0x17C},			    //Bullworth Academy Race 1
 		
 
 							//Go-Kart Races
-		{0x4C4, "M_GO_GP01"},				//Grand Prix Race 1
-		{0x4CA, "M_GO_GP02"},				//Grand Prix Race 2
-		{0x4D0, "M_GO_GP03"},				//Grand Prix Race 3
-		{0x4D6, "M_GO_GP04"},				//Grand Prix Race 4
-		{0x4DC, "M_GO_GP05"},				//Grand Prix Race 5
+		{"M_GO_GP01",	0x4C4},				//Grand Prix Race 1
+		{"M_GO_GP02",	0x4CA},				//Grand Prix Race 2
+		{"M_GO_GP03",	0x4D0},				//Grand Prix Race 3
+		{"M_GO_GP04",	0x4D6},				//Grand Prix Race 4
+		{"M_GO_GP05",	0x4DC},				//Grand Prix Race 5
 		
-		{0x4E2, "M_GO_SR01"},				//Street Race 1
-		{0x4E8, "M_GO_SR02"},				//Street Race 2
-		{0x4EE, "M_GO_SR03"},				//Street Race 3
+		{"M_GO_SR01",	0x4E2},				//Street Race 1
+		{"M_GO_SR02",	0x4E8},				//Street Race 2
+		{"M_GO_SR03",	0x4EE},				//Street Race 3
 						
 
 							//Lawn Mowing
-		{0x5D8, "M_LAWN_01"},				//Park 1
-		{0x5DE, "M_LAWN_02"},				//Park 2
-		{0x5E4, "M_LAWN_03"},				//Park 3
+		{"M_LAWN_01",	0x5D8},				//Park 1
+		{"M_LAWN_02",	0x5DE},				//Park 2
+		{"M_LAWN_03",	0x5E4},				//Park 3
 		
-		{0x5EA, "M_LAWN_04"},				//House 1
-		{0x5F0, "M_LAWN_05"},				//House 2
-		{0x5F6, "M_LAWN_06"},				//House 3
+		{"M_LAWN_04",	0x5EA},				//House 1
+		{"M_LAWN_05",	0x5F0},				//House 2
+		{"M_LAWN_06",	0x5F6},				//House 3
 		
 
 						    //Classes
 							 //Chemistry
-		{0x302, "C_CEM_1"},				    //Chemistry 1
-		{0x308, "C_CEM_2"},				    //Chemistry 2
-		{0x30E, "C_CEM_3"},				    //Chemistry 3
-		{0x314, "C_CEM_4"},				    //Chemistry 4
-		{0x31A, "C_CEM_5"},				    //Chemistry 5
+		{"C_CEM_1",	0x302},				    //Chemistry 1
+		{"C_CEM_2",	0x308},				    //Chemistry 2
+		{"C_CEM_3",	0x30E},				    //Chemistry 3
+		{"C_CEM_4",	0x314},				    //Chemistry 4
+		{"C_CEM_5",	0x31A},				    //Chemistry 5
 							 //English
-		{0x3A4, "C_ENG_1"},				    //English 1
-		{0x3AA, "C_ENG_2"},				    //English 2
-		{0x3B0, "C_ENG_3"},				    //English 3
-		{0x3B6, "C_ENG_4"},				    //English 4
-		{0x3BC, "C_ENG_5"},				    //English 5
+		{"C_ENG_1",	0x3A4},				    //English 1
+		{"C_ENG_2",	0x3AA},				    //English 2
+		{"C_ENG_3",	0x3B0},				    //English 3
+		{"C_ENG_4",	0x3B6},				    //English 4
+		{"C_ENG_5",	0x3BC},				    //English 5
 							 //Art
-		{0x326, "C_ART_1"},				    //Art 1	
-		{0x32C, "C_ART_2"},				    //Art 2		
-		{0x332, "C_ART_3"},				    //Art 3
-		{0x338, "C_ART_4"},				    //Art 4
-		{0x33E, "C_ART_5"},				    //Art 5
+		{"C_ART_1",	0x326},				    //Art 1	
+		{"C_ART_2",	0x32C},				    //Art 2		
+		{"C_ART_3",	0x332},				    //Art 3
+		{"C_ART_4",	0x338},				    //Art 4
+		{"C_ART_5",	0x33E},				    //Art 5
 							 //Gym
-		{0x368, "C_GYM_1"},				    //Gym 1
-		{0x36E, "C_GYM_2"},				    //Gym 2
-		{0x374, "C_GYM_3"},				    //Gym 3
-		{0x37A, "C_GYM_4"},				    //Gym 4
-		{0x380, "C_GYM_5"},				    //Gym 5
-							 //Biology
-		{0x40A, "C_BIO_1"},				    //Biology 1
-		{0x410, "C_BIO_2"},				    //Biology 2
-		{0x416, "C_BIO_3"},				    //Biology 3
-		{0x41C, "C_BIO_4"},				    //Biology 4
-		{0x422, "C_BIO_5"},				    //Biology 5
-							 //Music
-		{0x476, "C_MSC_1"},				    //Music 1
-		{0x47C, "C_MSC_2"},				    //Music 2
-		{0x482, "C_MSC_3"},				    //Music 3
-		{0x488, "C_MSC_4"},				    //Music 4
-		{0x48E, "C_MSC_5"},				    //Music 5
+		{"C_GYM_1",	0x368},				    //Gym 1
+		{"C_GYM_2",	0x36E},				    //Gym 2
+		{"C_GYM_3",	0x374},				    //Gym 3
+		{"C_GYM_4",	0x37A},				    //Gym 4
+		{"C_GYM_5",	0x380},				    //Gym 5
+							//Biology
+		{"C_BIO_1",	0x40A},				    //Biology 1
+		{"C_BIO_2",	0x410},				    //Biology 2
+		{"C_BIO_3",	0x416},				    //Biology 3
+		{"C_BIO_4",	0x41C},				    //Biology 4
+		{"C_BIO_5",	0x422},				    //Biology 5
+							//Music
+		{"C_MSC_1",	0x476},				    //Music 1
+		{"C_MSC_2",	0x47C},				    //Music 2
+		{"C_MSC_3",	0x482},				    //Music 3
+		{"C_MSC_4",	0x488},				    //Music 4
+		{"C_MSC_5",	0x48E},				    //Music 5
 							 //Shop
-		{0x3C8, "C_SHP_1"},				    //Shop 1					
-		{0x3CE, "C_SHP_2"},				    //Shop 2
-		{0x3D4, "C_SHP_3"},				    //Shop 3
-		{0x3DA, "C_SHP_4"},				    //Shop 4
-		{0x3E0, "C_SHP_5"},				    //Shop 5
+		{"C_SHP_1",	0x3C8},				    //Shop 1					
+		{"C_SHP_2",	0x3CE},				    //Shop 2
+		{"C_SHP_3",	0x3D4},				    //Shop 3
+		{"C_SHP_4",	0x3DA},				    //Shop 4
+		{"C_SHP_5",	0x3E0},				    //Shop 5
 							 //Photography
-		{0x386, "C_PGY_1"},				    //Photography 1
-		{0x38C, "C_PGY_2"},				    //Photography 2				
-		{0x392, "C_PGY_3"},				    //Photography 3
-		{0x398, "C_PGY_4"},				    //Photography 4
-		{0x39E, "C_PGY_5"},				    //Photography 5
+		{"C_PGY_1",	0x386},				    //Photography 1
+		{"C_PGY_2",	0x38C},				    //Photography 2				
+		{"C_PGY_3",	0x392},				    //Photography 3
+		{"C_PGY_4",	0x398},				    //Photography 4
+		{"C_PGY_5",	0x39E},				    //Photography 5
 							 //Geography
-		{0x42E, "C_GEO_1"},				    //Geography 1
-		{0x434, "C_GEO_2"},				    //Geography 2
-		{0x43A, "C_GEO_3"},				    //Geography 3
-		{0x440, "C_GEO_4"},				    //Geography 4
-		{0x446, "C_GEO_5"},				    //Geography 5
+		{"C_GEO_1",	0x42E},				    //Geography 1
+		{"C_GEO_2",	0x434},				    //Geography 2
+		{"C_GEO_3",	0x43A},				    //Geography 3
+		{"C_GEO_4",	0x440},				    //Geography 4
+		{"C_GEO_5",	0x446},				    //Geography 5
 							 //Math
-		{0x452, "C_MTH_1"},				    //Math 1
-		{0x458, "C_MTH_2"},				    //Math 2
-		{0x45E, "C_MTH_3"},				    //Math 3
-		{0x464, "C_MTH_4"},				    //Math 4
-		{0x46A, "C_MTH_5"},				    //Math 5
+		{"C_MTH_1",	0x452},				    //Math 1
+		{"C_MTH_2",	0x458},				    //Math 2
+		{"C_MTH_3",	0x45E},				    //Math 3
+		{"C_MTH_4",	0x464},				    //Math 4
+		{"C_MTH_5",	0x46A},				    //Math 5
 		
 						    //Misc
-		{0xC8, "C_C_02"},				//CH2 Cutscene
-		{0x1A0, "C_C_03"},				//CH3 Cutscene
-		{0x224, "C_C_04"},				//CH4 Cutscene
-		{0x278, "C_C_05"},				//CH5 Cutscene
-		{0x2F6, "C_C_C"}				//Credits
+		{"C_C_02",	0xC8},				//CH2 Cutscene
+		{"C_C_03",	0x1A0},				//CH3 Cutscene
+		{"C_C_04",	0x224},				//CH4 Cutscene
+		{"C_C_05",	0x278},				//CH5 Cutscene
+		{"C_C_C",	0x2F6}				//Credits
 	};
 	
 //////////////////////////////////////////////////////////////////////////
 
                         //Errands
-	vars.eAddresses = new Dictionary<int, string>{};
+	vars.eAddresses = new Dictionary<string, int>{};
 	for (int i = 0; i < 50; i++){								// Errands ... yes ... this small snipet is responsible for the errands dictionary ... 
-		vars.eAddresses.Add(0x81B096 + (0x4*i),"ER_"+i);		// I probably should do the same with the mess above , but im too lazy
+		vars.eAddresses.Add("ER_"+i,	0x81B096 + (0x4*i));		// I probably should do the same with the mess above , but im too lazy
 	}															// also thanks for reading my comment in this section ... here ... have a imaginary cookie
 	
                         //Collectibles
-	vars.colAdr = new Dictionary<int, string>{};				// Collectibles ... currently only gnomes
+	vars.colAdr = new Dictionary<string, int>{};				// Collectibles ... currently only gnomes
 	for (int i = 0; i < 25; i++ ){								// Will expand if requested/required
-		vars.colAdr.Add(0x7CEB54 + (0x2 * i), "GNOME_" + i);	// Regions ends for my own memory don't worry about this :)
+		vars.colAdr.Add("GNOME_" + i,	0x7CEB54 + (0x2 * i));	// Regions ends for my own memory don't worry about this :)
 	}															// 25/Gnomes , 31/Transistor, 106/Rubberbands, 146/Cards, 173/Pumpkins, 192/Tombstones
 
 //////////////////////////////////////////////////////////////////////////
@@ -783,8 +783,7 @@ startup{
 
 		// ---- Gnome Code
 			settings.Add("ALL_GNOME", false, "All Gnomes", "COL");
-			settings.SetToolTip("ALL_GNOME", @"Splits upon smashing all gnomes 
-Selecting indivdual gnomes is optional");
+			settings.SetToolTip("ALL_GNOME", "Splits upon smashing all gnomes\nSelecting indivdual gnomes is optional");
 			
 			for(int i = 0; i < 25; i++){
 				settings.Add("GNOME_" + i, false, "Gnome " + (i + 1), "ALL_GNOME");
@@ -891,16 +890,16 @@ init{
 	vars.watcherListIL = new MemoryWatcherList();
 
 	foreach ( var address in vars.mAddresses){
-		vars.watcherList.Add(new MemoryWatcher<byte>((IntPtr)current.M + address.Key) {Name = address.Value});
-		vars.watcherListIL.Add(new MemoryWatcher<byte>((IntPtr)current.M + address.Key + 0x2) {Name = address.Value});
+		vars.watcherList.Add(new MemoryWatcher<byte>((IntPtr)current.M + address.Value) {Name = address.Key});
+		vars.watcherListIL.Add(new MemoryWatcher<byte>((IntPtr)current.M + address.Value + 0x2) {Name = address.Key});
 	}
 
 	foreach ( var errand in vars.eAddresses){
-		vars.watcherList.Add(new MemoryWatcher<byte>(modules.First().BaseAddress + errand.Key) {Name = errand.Value});
+		vars.watcherList.Add(new MemoryWatcher<byte>(modules.First().BaseAddress + errand.Value) {Name = errand.Key});
 	}
 	
 	foreach ( var col in vars.colAdr){
-		vars.watcherList.Add(new MemoryWatcher<byte>(modules.First().BaseAddress + col.Key) {Name = col.Value});
+		vars.watcherList.Add(new MemoryWatcher<byte>(modules.First().BaseAddress + col.Value) {Name = col.Key});
 	}
 
 	vars.hasSplit = new List<string>();
@@ -908,7 +907,9 @@ init{
 	vars.gnomeTracker = new List<string>();
 	vars.IGToffset = new int();
 	vars.IGToffset = 0;
-	vars.ILStartAffix = "_STARTED";
+	vars.ILStart = "YEP";
+	
+	vars.initBool = true;
 }
 
 update{
@@ -917,19 +918,47 @@ update{
 		vars.watcherListIL.UpdateAll(game);
 	}
 	
-	current.timerPhase = timer.CurrentPhase;
-										//Yes i did take this snipet from GTA3 AS, as i was too busy making the cluster buster up there ... you know what im talking about
-	if ((old.timerPhase != current.timerPhase && old.timerPhase != TimerPhase.Paused) && current.timerPhase == TimerPhase.Running){
+	// Save load detection as im too lazy to look for memory address specific for it loading saves ... IGT is in memory region that gets reset upon loads anyway
+	if(old.IGT == 0 && current.IGT != 0 || vars.initBool){
 		vars.hasSplit.Clear();
 		vars.errandTracker.Clear();
 		vars.gnomeTracker.Clear();
+		
+		foreach (var watcher in vars.watcherList){
+						//Mission stuff
+			if(watcher.Current > 0){
+				if(vars.mAddresses.ContainsKey(watcher.Name)){
+							//Paper routes or Boxing Rounds
+					if(watcher.Name == "M_PR_D" || watcher.Name == "M_2_03R"){
+						for (int i = 1; i <= watcher.Current; i++){
+							vars.hasSplit.Add(watcher.Name + i);
+						}
+					} 
+							//Everything else
+					else {
+							vars.hasSplit.Add(watcher.Name);
+					}
+				}
+							//Errand stuff
+				else if(vars.eAddresses.ContainsKey(watcher.Name)){
+						vars.errandTracker.Add(watcher.Name);
+				}
+							//Collectibles
+				else if(vars.colAdr.ContainsKey(watcher.Name)){
+					if(watcher.Name.Contains("GNOME")){
+						vars.gnomeTracker.Add(watcher.Name);
+					}
+				}
+			}
+		}
+		vars.initBool = false;
 	}
 }
 
 split{
 	foreach (var mission in vars.mAddresses) {						// Now that i think about it ... why didn't i just simply do current != old ??? :thinking: ... Too lazy to go back and test why...This works fine too :)
-		if (settings[mission.Value] && vars.watcherList[mission.Value].Current == 1 && vars.watcherList[mission.Value].Old == 0 && !vars.hasSplit.Contains(mission.Value)){
-			vars.hasSplit.Add(mission.Value);
+		if (settings[mission.Key] && vars.watcherList[mission.Key].Current == 1 && vars.watcherList[mission.Key].Old == 0 && !vars.hasSplit.Contains(mission.Key)){
+			vars.hasSplit.Add(mission.Key);
 			return true;
 		}
 	}
@@ -949,12 +978,12 @@ split{
 	
 	if (settings["ER"]){
 		foreach (var errand in vars.eAddresses) {						//Responsible for the whole errand shazamble 
-			if(vars.watcherList[errand.Value].Current == 1 && vars.watcherList[errand.Value].Old == 0 && !vars.errandTracker.Contains(errand.Value)){
-				vars.errandTracker.Add(errand.Value);
+			if(vars.watcherList[errand.Key].Current == 1 && vars.watcherList[errand.Key].Old == 0 && !vars.errandTracker.Contains(errand.Key)){
+				vars.errandTracker.Add(errand.Key);
 				if(settings["ER_ALL"] && vars.errandTracker.Count >= 50){
 					return true;
 				}
-				if(settings[errand.Value]){
+				if(settings[errand.Key]){
 					return true;
 				}
 			}
@@ -964,12 +993,12 @@ split{
 	if (settings["COL"]){
 		if (settings["ALL_GNOME"]){				//You shall be gnomed.
 			foreach (var gnome in vars.colAdr){
-				if(vars.watcherList[gnome.Value].Current == 1 && vars.watcherList[gnome.Value].Old == 0 && !vars.gnomeTracker.Contains(gnome.Value)){
-					vars.gnomeTracker.Add(gnome.Value);
+				if(vars.watcherList[gnome.Key].Current == 1 && vars.watcherList[gnome.Key].Old == 0 && !vars.gnomeTracker.Contains(gnome.Key)){
+					vars.gnomeTracker.Add(gnome.Key);
 					if(vars.gnomeTracker.Count >= 25){
 						return true;
 					}
-					if(settings[gnome.Value]){
+					if(settings[gnome.Key]){
 						return true;
 					}
 				}
@@ -993,26 +1022,17 @@ isLoading {
 }
 
 start{
-	if (current.M1State == 17 && old.M1State == 0 && !settings["IL"]){				
-		vars.hasSplit.Clear();
-		vars.errandTracker.Clear();
-		vars.gnomeTracker.Clear();
+	if (current.M1State == 17 && old.M1State == 0 && !settings["IL"]){
 		return true;
 	}
 	
 	else
 	if(settings["IL"]){
 		foreach (var mission in vars.mAddresses) {
-			if (settings[mission.Value]){
-				if (vars.watcherListIL[mission.Value].Current == 17 && vars.watcherListIL[mission.Value].Old != 17){
+			if (settings[mission.Key]){
+				if (vars.watcherListIL[mission.Key].Current == 17 && vars.watcherListIL[mission.Key].Old != 17){
 					vars.IGToffset = current.IGT;
-					
-					vars.hasSplit.Clear();
-					vars.errandTracker.Clear();
-					vars.gnomeTracker.Clear();
-					
-					vars.hasSplit.Add(mission.Value + vars.ILStartAffix);
-					current.timerPhase = TimerPhase.Paused;
+					vars.ILStart = mission.Key;
 					return true;
 				}
 			}
@@ -1022,25 +1042,15 @@ start{
 
 reset{
 	if (current.M1State == 17 && old.M1State == 0 && !settings["IL"]){
-		vars.hasSplit.Clear();
-		vars.errandTracker.Clear();
-		vars.gnomeTracker.Clear();
 		return true;
 	}
 	
 	else
 	if(settings["IL"]){
 		foreach (var mission in vars.mAddresses) {
-			if (settings[mission.Value] && vars.hasSplit.Contains(mission.Value + vars.ILStartAffix)){
-				if (vars.watcherListIL[mission.Value].Current == 17 && vars.watcherListIL[mission.Value].Old != 17){
+			if (settings[mission.Key] && vars.ILStart == mission.Key){
+				if (vars.watcherListIL[mission.Key].Current == 17 && vars.watcherListIL[mission.Key].Old != 17){
 					vars.IGToffset = current.IGT;
-					
-					vars.hasSplit.Clear();
-					vars.errandTracker.Clear();
-					vars.gnomeTracker.Clear();
-					
-					vars.hasSplit.Add(mission.Value + vars.ILStartAffix);
-					current.timerPhase = TimerPhase.Paused;
 					return true;
 				}
 			}
