@@ -320,12 +320,12 @@ startup{
 		settings.Add("M_2_01", true, "Last Minute Shopping", "CH2");
 
 		    settings.Add("M_2_03", true, "Prep Challenge", "CH2");
-			    settings.Add("M_2_03R", false, "Chad", "M_2_03");
-			    settings.SetToolTip("M_2_03R", "Additional split for Chad");
-			    settings.Add("M_2_03R1", false, "Justin", "M_2_03");
-			    settings.SetToolTip("M_2_03R1", "Additional split for Justin");
-			    settings.Add("M_2_03R2", false, "Parker", "M_2_03");
-			    settings.SetToolTip("M_2_03R2", "Additional split for Parker");
+			    settings.Add("M_2_03R1", false, "Chad", "M_2_03");
+			    settings.SetToolTip("M_2_03R1", "Additional split for Chad");
+			    settings.Add("M_2_03R2", false, "Justin", "M_2_03");
+			    settings.SetToolTip("M_2_03R2", "Additional split for Justin");
+			    settings.Add("M_2_03R3", false, "Parker", "M_2_03");
+			    settings.SetToolTip("M_2_03R3", "Additional split for Parker");
 
 		settings.Add("M_2_04", true, "The Eggs", "CH2");
 		settings.Add("M_2_05", true, "Movie Tickets", "CH2");
@@ -433,10 +433,10 @@ startup{
 			// ---- Paper Route
 		settings.Add("M_PR", false, "Paper Route","chx");
 			settings.Add("M_PR_01", true, "Intro","M_PR");
-			settings.Add("M_PR_D", true, "10 Clients","M_PR");
-			settings.Add("M_PR_D1", true, "14 Clients","M_PR");
-			settings.Add("M_PR_D2", true, "19 Clients","M_PR");
-			settings.Add("M_PR_D3", true, "24 Clients","M_PR");
+			settings.Add("M_PR_D1", true, "10 Clients","M_PR");
+			settings.Add("M_PR_D2", true, "14 Clients","M_PR");
+			settings.Add("M_PR_D3", true, "19 Clients","M_PR");
+			settings.Add("M_PR_D4", true, "24 Clients","M_PR");
 		
 			// ----Lawn Mowing
 		settings.Add("M_LAWN", false, "Lawn Mowing","chx");	
@@ -956,23 +956,18 @@ update{
 }
 
 split{
-	foreach (var mission in vars.mAddresses) {						// Now that i think about it ... why didn't i just simply do current != old ??? :thinking: ... Too lazy to go back and test why...This works fine too :)
-		if (settings[mission.Key] && vars.watcherList[mission.Key].Current == 1 && vars.watcherList[mission.Key].Old == 0 && !vars.hasSplit.Contains(mission.Key)){
-			vars.hasSplit.Add(mission.Key);
-			return true;
+	foreach (var mission in vars.mAddresses) {
+		string setKey = mission.Key;
+			// PAPER ROUTE and BOXING ROUND EXCEPTION
+		if (mission.Key == "M_PR_D" || mission.Key == "M_2_03R") {
+			setKey = setKey + vars.watcherList[setKey].Current;
 		}
-	}
-	for (int i = 1; i < 4; i++){			//The special case of Paper route missions being under same address 
-		if (settings["M_PR_D"+i] && vars.watcherList["M_PR_D"].Current == i+1 && vars.watcherList["M_PR_D"].Old == i && !vars.hasSplit.Contains("M_PR_D"+i)){
-			vars.hasSplit.Add("M_PR_D"+i);
-			return true;
-		}
-										//Special Boxing Round stuff
-		if ( i != 3){
-			if (settings["M_2_03R"+i] && vars.watcherList["M_2_03R"].Current == i+1 && vars.watcherList["M_2_03R"].Old == i && !vars.hasSplit.Contains("M_2_03R"+i)){
-				vars.hasSplit.Add("M_2_03R"+i);
+			//Checking if settings has key provided due how paper route // boxing round exceptions are handled;
+		if(settings.ContainsKey(setKey) && settings[setKey] && !vars.hasSplit.Contains(setKey)){
+			if (vars.watcherList[mission.Key].Current != vars.watcherList[mission.Key].Old){
+				vars.hasSplit.Add(setKey);
 				return true;
-			}
+			}	
 		}
 	}
 	
