@@ -1,25 +1,25 @@
 state("Bully"){
+	int M_POINTER : 0x1CC4328;
+	int ARC_POINTER : "Bully.exe", 0x8674C8;
 	int IGT : "Bully.exe", 0x81A340;
+	byte isLoading : 0x7F3E34;
 	byte M1State : 0x1CC4328, 0x1C;
-	int M : 0x1CC4328;
 }
 	// amzy wuz here - Cleaned Code for readability.
-	// THOSE COMING FROM THE AS INDEX PAGE OR WHATEVER PLEASE DON'T RELLY ON THIS AS A EXAMPLE ON HOW TO WRITE A AUTOSPLITTER, THIS IS A HOT MESS
-	// I JUST NEED TO FIND TIME TO CLEAN IT UP 
 	
 	// Thanks for stopping by :)
 
 //////////////////////////////////////////////////////////////////////////
 
 startup{
-	refreshRate = 30;
+	
 	vars.mAddresses = new Dictionary<string, int> {
 
 						//Chapter 1
 					        //---Welcome to Bullworth	
 		{"M_1_01a",	0x1A}, 				//Meet the Principal
 		{"M_1_01b",	0x20},				//Bully Fight
-		{"M_1_01c",	0x26},				//Meet Gary
+		{"M_1",	0x26},					//Meet Gary
 
 		{"M_1_02",	0x2C},				//Mission Tutorial
 		{"M_1_03",	0x32},				//This is Your School
@@ -93,7 +93,7 @@ startup{
 		{"M_5_10",	0x2DE},				//Showdown at the Plant
 		{"M_5_11a",	0x2E4},				//Rescue Russell
 		{"M_5_11b",	0x2EA},				//Take down the Clique Leaders
-		{"M_5_11c",	0x2F0},				//Final Showdown
+		{"M_5_11",	0x2F0},				//Final Showdown
 		
 
 						//Side missions
@@ -289,10 +289,8 @@ startup{
 		    settings.Add("M_1", true, "Welcome to Bullworth", "CH1");
 			    settings.Add("M_1_01a", false, "Meet the Principal", "M_1");
 			    settings.Add("M_1_01b", false, "Bully Fight", "M_1");
-			    settings.Add("M_1_01c", true, "Meet Gary", "M_1");
-			    settings.SetToolTip("M_1_01a", "Splits after going to the Principal.");
-			    settings.SetToolTip("M_1_01b", "Splits when entering Boys Dorm.");
-			    settings.SetToolTip("M_1_01c", "Splits after mission ends.");
+			    settings.SetToolTip("M_1_01a", "Additional split after going to the Principal.");
+			    settings.SetToolTip("M_1_01b", "Additional split when entering Boys Dorm.");
 		    settings.Add("M_1_02", false, "Mission Tutorial", "CH1");
 		    settings.SetToolTip("M_1_02", "Splits after walking into 'This is Your School' mission marker.\nUnsure why it's counted as seperate mission,\nadded it anyway in case any one wants to use it.");
 
@@ -385,8 +383,6 @@ startup{
             settings.Add("M_5_11", true, "Complete Mayhem","CH5");
 			    settings.Add("M_5_11a", false, "Rescue Russell","M_5_11");
 			    settings.Add("M_5_11b", false, "Take down the Clique Leaders","M_5_11");
-			    settings.Add("M_5_11c", true, "Final Showdown","M_5_11");
-			    settings.SetToolTip("M_5_11c", "Final split for Any%");
 			
 
         //------CREDITS------//            
@@ -777,12 +773,12 @@ startup{
 //////////////////////////////////////////////////////////////////////////
 
 
-	//------Collectibles------//
-		settings.Add("COL", false, "Collectibles");
+	//------Category Extensions------//
+		settings.Add("CAT_X", false, "Category Extensions");
 
 
 		// ---- Gnome Code
-			settings.Add("ALL_GNOME", false, "All Gnomes", "COL");
+			settings.Add("ALL_GNOME", false, "All Gnomes", "CAT_X");
 			settings.SetToolTip("ALL_GNOME", "Splits upon smashing all gnomes\nSelecting indivdual gnomes is optional");
 			
 			for(int i = 0; i < 25; i++){
@@ -840,7 +836,13 @@ startup{
 
 			settings.SetToolTip("GNOME_24", "Vale\nBeside the southeast entrace to Bullworth Park.");
 		
-
+		// ---- Future Street Racer settings
+		
+		settings.Add("FSR", false, "Future Street Racer", "CAT_X");
+			settings.SetToolTip("FSR", "FSR Category Extensions timing for FSR 2165 & FSR 3D.\nSplits after each of the 3 races.\n\nSomewhat experimental");
+			
+			settings.Add("FSR_Laps", false, "Individual Laps", "FSR");
+			settings.SetToolTip("FSR_Laps", "Additional splitting after each Lap");
 //////////////////////////////////////////////////////////////////////////
 		// --- Todo? if Required
 //////////////////////////////////////////////////////////////////////////
@@ -862,6 +864,9 @@ manual Reset clears auto-Resets memorized mission.
 //////////////////////////////////////////////////////////////////////////
 
 	// --- MISC
+	settings.Add("LOADLESS", false, "Loadless IGT");
+	settings.SetToolTip("LOADLESS", "Currently testing purposes only\nThis will invalid your run!");
+	
 	settings.Add("IGT_message", true, "Ask if Game Time should be used when the game opens");
 			
 	 // ------------------------- End of Settings
@@ -883,15 +888,16 @@ init{
 		}
 	}
     
-	if (current.M == 0){
-		throw new Exception("--Memory still loading--");}			//Idk how to word this correctly, but is required for MemoryWatcher
+	if (current.M_POINTER == 0){
+		throw new Exception("--Memory still initializing pointers--");}			//Idk how to word this correctly, but is required for MemoryWatcher
 
 	vars.watcherList = new MemoryWatcherList();
 	vars.watcherListIL = new MemoryWatcherList();
+	vars.watcherListFSR = new MemoryWatcherList();
 
 	foreach ( var address in vars.mAddresses){
-		vars.watcherList.Add(new MemoryWatcher<byte>((IntPtr)current.M + address.Value) {Name = address.Key});
-		vars.watcherListIL.Add(new MemoryWatcher<byte>((IntPtr)current.M + address.Value + 0x2) {Name = address.Key});
+		vars.watcherList.Add(new MemoryWatcher<byte>((IntPtr)current.M_POINTER + address.Value) {Name = address.Key});
+		vars.watcherListIL.Add(new MemoryWatcher<byte>((IntPtr)current.M_POINTER + address.Value + 0x2) {Name = address.Key});
 	}
 
 	foreach ( var errand in vars.eAddresses){
@@ -901,6 +907,12 @@ init{
 	foreach ( var col in vars.colAdr){
 		vars.watcherList.Add(new MemoryWatcher<byte>(modules.First().BaseAddress + col.Value) {Name = col.Key});
 	}
+	
+	vars.watcherListFSR.Add(new MemoryWatcher<byte>((IntPtr)current.ARC_POINTER + 0x8){Name = "ARC_STATE"});
+	vars.watcherListFSR.Add(new MemoryWatcher<int>((IntPtr)current.ARC_POINTER + 0x64){Name = "ARC_IGT"});
+	vars.watcherListFSR.Add(new MemoryWatcher<int>((IntPtr)current.ARC_POINTER + 0x6C){Name = "ARC_GAP"});
+	vars.watcherListFSR.Add(new MemoryWatcher<int>((IntPtr)current.ARC_POINTER + 0x70){Name = "ARC_LAP"});
+	vars.watcherListFSR.Add(new MemoryWatcher<byte>(modules.First().BaseAddress + 0x7B6100){Name = "AREA"});
 
 	vars.hasSplit = new List<string>();
 	vars.errandTracker = new List<string>();
@@ -918,6 +930,12 @@ update{
 		vars.watcherListIL.UpdateAll(game);
 	}
 	
+	if(settings["FSR"]){
+		vars.watcherListFSR.UpdateAll(game);
+		if(settings["FSR_Laps"] && vars.watcherListFSR["ARC_LAP"].Current != 0 && !vars.watcherListFSR["ARC_LAP"].Changed && vars.watcherListFSR["ARC_GAP"].Changed){
+			memory.WriteValue<int>((IntPtr)(current.ARC_POINTER + 0x70), 0);				//Resets best lap time incase same lap time is set and change not detected in result
+		}
+	}
 	// Save load detection as im too lazy to look for memory address specific for it loading saves ... IGT is in memory region that gets reset upon loads anyway
 	if(old.IGT == 0 && current.IGT != 0 || vars.initBool){
 		vars.hasSplit.Clear();
@@ -953,6 +971,11 @@ update{
 		}
 		vars.initBool = false;
 	}
+	if(settings["LOADLESS"]){
+		vars.NOP = current.isLoading != 0 ? new byte[] {0x90,0x90,0x90,0x90,0x90,0x90} : new byte[] {0x01,0x35,0x40,0xA3,0xC1,0x00};
+		memory.WriteBytes((IntPtr)(modules.First().BaseAddress + 0x5A6CC), (byte[])vars.NOP);
+	}
+	//Bully.exe+5A6CC - 01 35 40A3C100
 }
 
 split{
@@ -985,7 +1008,7 @@ split{
 		}
 	}
 	
-	if (settings["COL"]){
+	if (settings["CAT_X"]){
 		if (settings["ALL_GNOME"]){				//You shall be gnomed.
 			foreach (var gnome in vars.colAdr){
 				if(vars.watcherList[gnome.Key].Current == 1 && vars.watcherList[gnome.Key].Old == 0 && !vars.gnomeTracker.Contains(gnome.Key)){
@@ -999,16 +1022,35 @@ split{
 				}
 			}
 		}
+		if (settings["FSR"]){
+			
+			if(settings["FSR_Laps"] && vars.watcherListFSR["ARC_LAP"].Changed && vars.watcherListFSR["ARC_LAP"].Current != 0){
+				return true;
+			}	
+			
+			if(vars.watcherListFSR["ARC_STATE"].Old == 1 && vars.watcherListFSR["ARC_STATE"].Current == 0){
+				vars.IGToffset += vars.watcherListFSR["ARC_IGT"].Current;						//Sums up Arcade IGT as game resets it between stages.
+				memory.WriteValue<int>((IntPtr)(current.ARC_POINTER + 0x64), 0);				//Resets Arcade IGT upon completing race, since game resets it upon start of next game
+																								//and as to not have extra time shown after offset is updated.
+				return !settings["FSR_Laps"];													//Probably could have throw sum calculation as the next race starts, but thats just more checks :)				
+			}
+		}
 	}
 }
 
 gameTime {
-	if(!settings["IL"]){
-		return TimeSpan.FromMilliseconds((double)current.IGT);
+	if (settings["LOADLESS"]){
+		return -TimeSpan.FromMilliseconds((double)current.IGT);
 	}
 	
-	else{
+	if(settings["IL"]){
 		return TimeSpan.FromMilliseconds((double)(current.IGT - vars.IGToffset));
+	}
+	else if(settings["FSR"]){
+		return TimeSpan.FromMilliseconds(vars.watcherListFSR["ARC_IGT"].Current + (double)vars.IGToffset);
+	}
+	else{
+		return TimeSpan.FromMilliseconds((double)current.IGT);
 	}
 }
 
@@ -1020,9 +1062,7 @@ start{
 	if (current.M1State == 17 && old.M1State == 0 && !settings["IL"]){
 		return true;
 	}
-	
-	else
-	if(settings["IL"]){
+	else if(settings["IL"]){
 		foreach (var mission in vars.mAddresses) {
 			if (settings[mission.Key]){
 				if (vars.watcherListIL[mission.Key].Current == 17 && vars.watcherListIL[mission.Key].Old != 17){
@@ -1033,6 +1073,13 @@ start{
 			}
 		}
 	}
+	else if(settings["FSR"]){
+		if(vars.watcherListFSR["AREA"].Current == 51 && vars.watcherListFSR["ARC_STATE"].Old == 0 && vars.watcherListFSR["ARC_STATE"].Current == 1){
+			memory.WriteValue<int>((IntPtr)(current.ARC_POINTER + 0x64), 0);
+			vars.IGToffset = 0;
+			return true;
+		}
+	}
 } 
 
 reset{
@@ -1040,8 +1087,7 @@ reset{
 		return true;
 	}
 	
-	else
-	if(settings["IL"]){
+	else if(settings["IL"]){
 		foreach (var mission in vars.mAddresses) {
 			if (settings[mission.Key] && vars.ILStart == mission.Key){
 				if (vars.watcherListIL[mission.Key].Current == 17 && vars.watcherListIL[mission.Key].Old != 17){
@@ -1049,6 +1095,13 @@ reset{
 					return true;
 				}
 			}
+		}
+	}
+	else if(settings["FSR"]){
+		if(vars.watcherListFSR["AREA"].Current == 51 && vars.watcherListFSR["ARC_STATE"].Old == 0 && vars.watcherListFSR["ARC_STATE"].Current == 1){
+			memory.WriteValue<int>((IntPtr)(current.ARC_POINTER + 0x64), 0);
+			vars.IGToffset = 0;
+			return true;
 		}
 	}
 }
