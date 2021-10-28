@@ -865,7 +865,7 @@ manual Reset clears auto-Resets memorized mission.
 
 	// --- MISC
 	settings.Add("LOADLESS", false, "Loadless IGT");
-	settings.SetToolTip("LOADLESS", "Currently testing purposes only\nThis will invalid your run!");
+	settings.SetToolTip("LOADLESS", "Currently testing purposes only\nThis will invalidate your run!");
 	
 	settings.Add("IGT_message", true, "Ask if Game Time should be used when the game opens");
 			
@@ -922,6 +922,23 @@ init{
 	vars.ILStart = "YEP";
 	
 	vars.initBool = true;
+	
+	vars.InjectionBase = new IntPtr();
+}
+
+shutdown{
+	if(game != null && memory.ReadValue<byte>((IntPtr)(modules.First().BaseAddress + 0x5A6D1)) == 0x90){
+		game.Suspend();
+		memory.WriteBytes((IntPtr)(modules.First().BaseAddress + 0x5A6CC), new byte[] {0x01,0x35,0x40,0xA3,0xC1,0x00});
+		if(vars.InjectionBase != new IntPtr()){
+			game.FreeMemory((IntPtr)vars.InjectionBase);
+			vars.InjectionBase = new IntPtr();
+		}
+		game.Resume();
+		var message = MessageBox.Show(
+		    "Loadless IGT code removed.", 
+		    "LiveSplit | Bully Auto Splitter", MessageBoxButtons.OK, MessageBoxIcon.Information);
+	}
 }
 
 update{
@@ -971,11 +988,65 @@ update{
 		}
 		vars.initBool = false;
 	}
-	if(settings["LOADLESS"]){
-		vars.NOP = current.isLoading != 0 ? new byte[] {0x90,0x90,0x90,0x90,0x90,0x90} : new byte[] {0x01,0x35,0x40,0xA3,0xC1,0x00};
-		memory.WriteBytes((IntPtr)(modules.First().BaseAddress + 0x5A6CC), (byte[])vars.NOP);
+	
+	// TODO : Remove LOADLESS checks once the time comes :)
+
+	if(settings["LOADLESS"] && memory.ReadValue<byte>((IntPtr)(modules.First().BaseAddress + 0x5A6D1)) != 0x90){
+		vars.InjectionBase = game.AllocateMemory(0x1000);
+		var CodePatch = new List<byte>{
+/*0x00*/	0x81, 0x3D, 0x34, 0x3E, 0xBF, 0x00, 0x00, 0x00, 0x00, 0x00,
+/*0x0A*/	0x77, 0x0A,
+/*0x0C*/	0x0F, 0x1F, 0x40, 0x00,
+/*0x10*/	0x01, 0x35, 0x40, 0xA3, 0xC1, 0x00,
+/*0x16*/	0x80, 0x3D, 0xE4, 0x93, 0xC1, 0x00, 0x00,
+/*0x1D*/	0xE9 /*Jump back to main*/
+		};
+		CodePatch.InsertRange(0x1E, BitConverter.GetBytes((int)modules.First().BaseAddress + 0x5A6D1 - (int)vars.InjectionBase - 33));
+		
+		var CodeOverride = new List<byte>{
+/*0x00*/	0xE9, /*Jump to Patch*/
+/*0x05*/	0x90
+		};
+		CodeOverride.InsertRange(0x01, (BitConverter.GetBytes((int)vars.InjectionBase - (int)modules.First().BaseAddress - 0x5A6D1)));
+		
+		game.Suspend();
+		memory.WriteBytes((IntPtr)vars.InjectionBase, CodePatch.ToArray());
+		memory.WriteBytes((IntPtr)(modules.First().BaseAddress + 0x5A6CC), CodeOverride.ToArray());
+		game.Resume();
+		
+		var message = MessageBox.Show(
+		    "Loadless IGT code added. @" + vars.InjectionBase, 
+		    "LiveSplit | Bully Auto Splitter", MessageBoxButtons.OK, MessageBoxIcon.Information);
+		
+		//vars.NOP = current.isLoading != 0 ? new byte[] {0x90,0x90,0x90,0x90,0x90,0x90} : new byte[] {0x01,0x35,0x40,0xA3,0xC1,0x00};
+		//memory.WriteBytes((IntPtr)(modules.First().BaseAddress + 0x5A6CC), (byte[])vars.NOP);
 	}
-	//Bully.exe+5A6CC - 01 35 40A3C100
+	
+	if(!settings["LOADLESS"] && memory.ReadValue<byte>((IntPtr)(modules.First().BaseAddress + 0x5A6D1)) == 0x90){
+		
+		game.Suspend();
+		memory.WriteBytes((IntPtr)(modules.First().BaseAddress + 0x5A6CC), new byte[] {0x01,0x35,0x40,0xA3,0xC1,0x00});
+		if(vars.InjectionBase != new IntPtr()){
+			game.FreeMemory((IntPtr)vars.InjectionBase);
+			vars.InjectionBase = new IntPtr();
+		}
+		game.Resume();
+		
+		var message = MessageBox.Show(
+		    "Loadless IGT code removed.", 
+		    "LiveSplit | Bully Auto Splitter", MessageBoxButtons.OK, MessageBoxIcon.Information);
+	}
+	
+	//Bully.exe+5A6CC - 01 35 40A3C100			- add [Bully.exe+81A340],esi				//Original OP
+	
+	//Bully.exe+5A6CC - E9 2F59DC01           	- jmp 02220000								//Override OP
+	
+	//02220000 - 81 3D 343EBF00 00000000 		- cmp [Bully.exe+7F3E34],00000000			//Patch OP
+	//0222000A - 77 0A                 			- ja 02220016
+	//0222000C - 0F1F 40 00            			- nop dword ptr [eax+00]
+	//02220010 - 01 35 40A3C100        			- add [Bully.exe+81A340],esi
+	//02220016 - 80 3D E493C100 00     			- cmp byte ptr [Bully.exe+8193E4],00
+	//0222001D - E9 B0A623FE           			- jmp Bully.exe+5A6D2
 }
 
 split{
@@ -1039,7 +1110,7 @@ split{
 }
 
 gameTime {
-	if (settings["LOADLESS"]){
+	if (settings["LOADLESS"] || memory.ReadValue<byte>((IntPtr)(modules.First().BaseAddress + 0x5A6D1)) == 0x90){
 		return -TimeSpan.FromMilliseconds((double)current.IGT);
 	}
 	
