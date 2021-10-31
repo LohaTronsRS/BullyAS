@@ -924,9 +924,11 @@ init{
 	vars.initBool = true;
 	
 	vars.InjectionBase = new IntPtr();
+	vars.downBool = false;
 }
 
 shutdown{
+	vars.downBool = true;
 	if(game != null && memory.ReadValue<byte>((IntPtr)(modules.First().BaseAddress + 0x5A6D1)) == 0x90){
 		game.Suspend();
 		memory.WriteBytes((IntPtr)(modules.First().BaseAddress + 0x5A6CC), new byte[] {0x01,0x35,0x40,0xA3,0xC1,0x00});
@@ -991,7 +993,7 @@ update{
 	
 	// TODO : Remove LOADLESS checks once the time comes :)
 
-	if(settings["LOADLESS"] && memory.ReadValue<byte>((IntPtr)(modules.First().BaseAddress + 0x5A6D1)) != 0x90){
+	if(settings["LOADLESS"] && memory.ReadValue<byte>((IntPtr)(modules.First().BaseAddress + 0x5A6D1)) != 0x90 && !vars.downBool){
 		vars.InjectionBase = game.AllocateMemory(0x1000);
 		var CodePatch = new List<byte>{
 /*0x00*/	0x80, 0x3D, 0x34, 0x3E, 0xBF, 0x00, 0x00,
