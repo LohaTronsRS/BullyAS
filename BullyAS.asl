@@ -994,14 +994,13 @@ update{
 	if(settings["LOADLESS"] && memory.ReadValue<byte>((IntPtr)(modules.First().BaseAddress + 0x5A6D1)) != 0x90){
 		vars.InjectionBase = game.AllocateMemory(0x1000);
 		var CodePatch = new List<byte>{
-/*0x00*/	0x81, 0x3D, 0x34, 0x3E, 0xBF, 0x00, 0x00, 0x00, 0x00, 0x00,
-/*0x0A*/	0x77, 0x0A,
-/*0x0C*/	0x0F, 0x1F, 0x40, 0x00,
-/*0x10*/	0x01, 0x35, 0x40, 0xA3, 0xC1, 0x00,
-/*0x16*/	0x80, 0x3D, 0xE4, 0x93, 0xC1, 0x00, 0x00,
-/*0x1D*/	0xE9 /*Jump back to main*/
+/*0x00*/	0x80, 0x3D, 0x34, 0x3E, 0xBF, 0x00, 0x00,
+/*0x07*/	0x0F, 0x85, /*Jump back to main*/
+/*0x0D*/	0x01, 0x35, 0x40, 0xA3, 0xC1, 0x00,
+/*0x13*/	0xE9 /*Jump back to main*/
 		};
-		CodePatch.InsertRange(0x1E, BitConverter.GetBytes((int)modules.First().BaseAddress + 0x5A6D1 - (int)vars.InjectionBase - 33));
+		CodePatch.InsertRange(0x09, BitConverter.GetBytes((int)modules.First().BaseAddress + 0x5A6E6 - (int)vars.InjectionBase - 0x0D));
+		CodePatch.InsertRange(0x14, BitConverter.GetBytes((int)modules.First().BaseAddress + 0x5A6D2 - (int)vars.InjectionBase - 0x18));
 		
 		var CodeOverride = new List<byte>{
 /*0x00*/	0xE9, /*Jump to Patch*/
@@ -1039,14 +1038,12 @@ update{
 	
 	//Bully.exe+5A6CC - 01 35 40A3C100			- add [Bully.exe+81A340],esi				//Original OP
 	
-	//Bully.exe+5A6CC - E9 2F59DC01           	- jmp 02220000								//Override OP
+	//Bully.exe+5A6CC - E9 2F59DC01           	- jmp *Patch*								//Override OP
 	
-	//02220000 - 81 3D 343EBF00 00000000 		- cmp [Bully.exe+7F3E34],00000000			//Patch OP
-	//0222000A - 77 0A                 			- ja 02220016
-	//0222000C - 0F1F 40 00            			- nop dword ptr [eax+00]
-	//02220010 - 01 35 40A3C100        			- add [Bully.exe+81A340],esi
-	//02220016 - 80 3D E493C100 00     			- cmp byte ptr [Bully.exe+8193E4],00
-	//0222001D - E9 B0A623FE           			- jmp Bully.exe+5A6D2
+	//x00 - 80 3D 343EBF00 00					- cmp byte ptr [Bully.exe+7F3E34],00		//Patch OP
+	//x07 - 0F85 D9A613FE         				- jne Bully.exe+5A6E6
+	//x0D - 01 35 40A3C100        				- add [Bully.exe+81A340],esi
+	//x13 - E9 B0A623FE           				- jmp Bully.exe+5A6D2
 }
 
 split{
